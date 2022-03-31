@@ -1,20 +1,30 @@
 "use strict";
 
+// DB에서 불러오기 위해서는 File System이 필요
+const fs = require('fs').promises;
+
+/*
+    클래스 자체에서 호출할 경우 static을 사용해야 외부에서 사용가능하며, 
+    #을 사용해서 정보은닉을 할수 있음(public -> private)            */
 class UserStorage {
-    /* 테스트 값*/
-    // 클래스 자체에서 호출할 경우 static을 사용해야 외부에서 사용가능하며, 
-    // #을 사용해서 정보은닉을 할수 있음(public -> private)
+    
+    static #getUserInfo(data, id) {
+        const users = JSON.parse(data);
 
-    static #users = {
-        id: ["admin", "나개발", "김팀장"],
-        pw: ["1234", "12345", "123456"],
-        name: ["강호동", "이수근", "김영철"],
-    };
+        const idx = users.id.indexOf(id);       // 해당 ID의 인덱스
+        const usersKeys = Object.keys(users);   // => [id, pw, name]
+        const userInfo = usersKeys.reduce((newUser, info) => {
+            newUser[info] = users[info][idx];
+            return newUser;
+        }, {});
+        console.log(userInfo);
+        return userInfo;
+    }
 
-    static getUsers(...fields){
-        const users = this.#users;
+    static getUsers(...fields) {
+        // const users = this.#users;
         const newUsers = fields.reduce((newUsers, field) => {
-            if(users.hasOwnProperty(field)){
+            if (users.hasOwnProperty(field)) {
                 newUsers[field] = users[field];
             }
             return newUsers;
@@ -23,25 +33,24 @@ class UserStorage {
         return newUsers;
     }
 
-    static getUserInfo(id){
-        const users = this.#users;
-        const idx = users.id.indexOf(id);       // 해당 ID의 인덱스
-        const usersKeys = Object.keys(users);   // => [id, pw, name]
-        const userInfo = usersKeys.reduce((newUser, info)=>{
-            newUser[info] = users[info][idx];
-            return newUser;
-        }, {});
-
-        return userInfo;
+    static getUserInfo(id) {
+        /* 현재 경로는 app.js 기준 */
+        return fs.readFile('./src/databases/users.json')
+            .then((data) => {
+                return this.#getUserInfo(data, id);
+            })
+            .catch(console.error);
     }
 
-    static save(userInfo){
-        const users = this.#users;
+    
+
+    static save(userInfo) {
+        // const users = this.#users;
         users.id.push(userInfo.id);
         users.name.push(userInfo.name);
         users.pw.push(userInfo.pw);
-        
-        return { success : true };
+
+        return { success: true };
     }
 }
 
