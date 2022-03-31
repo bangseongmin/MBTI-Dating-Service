@@ -7,11 +7,13 @@ const app = express();
 // routing
 const home = require("./src/routes/home");     
 
-// set view
+// app setting
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
 
+
 // middle ware
 app.use("/", home);
+app.use(express.static(`${__dirname}/src/public`));
 
 module.exports = app;
