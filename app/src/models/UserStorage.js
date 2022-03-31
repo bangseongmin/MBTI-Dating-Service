@@ -7,7 +7,7 @@ const fs = require('fs').promises;
     클래스 자체에서 호출할 경우 static을 사용해야 외부에서 사용가능하며, 
     #을 사용해서 정보은닉을 할수 있음(public -> private)            */
 class UserStorage {
-    
+
     static #getUserInfo(data, id) {
         const users = JSON.parse(data);
 
@@ -21,8 +21,11 @@ class UserStorage {
         return userInfo;
     }
 
-    static getUsers(...fields) {
-        // const users = this.#users;
+    static #getUsers(data, isAll, fields){
+        const users = JSON.parse(data);
+
+        if(isAll) return users;
+
         const newUsers = fields.reduce((newUsers, field) => {
             if (users.hasOwnProperty(field)) {
                 newUsers[field] = users[field];
@@ -31,6 +34,15 @@ class UserStorage {
         }, {});
 
         return newUsers;
+    }
+    
+    static getUsers(isAll, ...fields) {
+        return fs
+            .readFile('./src/databases/users.json')
+            .then((data) => {
+                return this.#getUsers(data, isAll, fields);
+            })
+            .catch(console.error);
     }
 
     static getUserInfo(id) {
@@ -42,15 +54,23 @@ class UserStorage {
             .catch(console.error);
     }
 
-    
+    static async save(userInfo) {
+        const users = await this.getUsers(true);
+        
+        // 이미 존재하는 아이디
+        if(users.id.includes(userInfo.id)){
+            throw "이미 존재하는 아이디입니다.";
+        }
 
-    static save(userInfo) {
-        // const users = this.#users;
+        // 데이터 추가        
         users.id.push(userInfo.id);
         users.name.push(userInfo.name);
         users.pw.push(userInfo.pw);
+        
+        fs.writeFile('./src/databases/users.json', JSON.stringify(users));
 
-        return { success: true };
+        return {success : true};
+        
     }
 }
 
