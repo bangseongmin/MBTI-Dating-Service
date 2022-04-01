@@ -3,6 +3,10 @@
 // module
 const express = require('express');
 const bodyParser = require('body-parser');
+const dotenv = require("dotenv");                   // << 환경변수 저장모듈
+
+dotenv.config();    
+
 const app = express();
 
 // routing
