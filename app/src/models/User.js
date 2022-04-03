@@ -29,7 +29,7 @@ class User {
             }
             return { success: false, msg: "존재하지 않는 아이디 입니다." };
         } catch (err) {
-            return { success: false, msg: err };
+            return { success: false, err };
         }
     }
 
@@ -41,7 +41,7 @@ class User {
             return response;
         } catch (err) {
 
-            return { success: false, msg: err };
+            return { success: false, err };
         }
     }
 }

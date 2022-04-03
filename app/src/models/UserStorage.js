@@ -17,11 +17,10 @@ class UserStorage {
     static getUserInfo(id) {
         // Mysql은 프라미스를 지원해주지 않아 직접 Promise 처리가 필요
         return new Promise((resolve, reject) => {
-            const query = "SELECT * FROM users WHERE id = ?;";
+            const query = "SELECT * FROM abc WHERE id = ?;";
             db.query(query, [id], (err, data)=> {
                 if(err) reject(`${err}`);
-
-                resolve(data[0]);
+                else resolve(data[0]);
             });
         });
     }
@@ -29,10 +28,10 @@ class UserStorage {
     static async save(userInfo) {
         // Mysql은 프라미스를 지원해주지 않아 직접 Promise 처리가 필요
         return new Promise((resolve, reject) => {
-            const query = "INSERT INTO users(id, name, pw) VALUES(?, ?, ?);";
+            const query = "INSERT INTO abc(id, name, pw) VALUES(?, ?, ?);";
             db.query(query, [userInfo.id, userInfo.name, userInfo.pw], (err)=> {
                 if(err) reject(`${err}`);
-                resolve({ success : true });
+                else resolve({ success : true });
             });
         });
     }
