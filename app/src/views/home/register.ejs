@@ -5,25 +5,63 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="/css/home/login.css">
+
+    <link rel="stylesheet" href="/css/home/register.css">
     <script src="/js/home/register.js" defer></script>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <title>register</title>
 </head>
 
 <body>
-    <div class="login-page">
-        <div class="form">
-          <form class="login-form">
-            <input id="id" type="text" placeholder="아이디"/>
-            <input id="name" type="text" placeholder="이름"/>
-            <input id="pw" type="password" placeholder="비밀번호"/>
-            <input id="confirm-pw" type="password" placeholder="비밀번호 확인"/>
-            <p id="button">SIGN UP</p>
-            <p class="message">Already registered? <a href="/login">Login</a></p>
-          </form>
+    <section>
+        <div class="imgBx">
+            <img src="/rss/img/couple.jpg">
         </div>
-      </div>
+        <div class="register-page">
+            <form class="register-form">
+                <h2>Create</h2>
+                <div class="inputBx">
+                    <span>ID</span>
+                    <input id="id" type="text" placeholder="아이디" />
+                </div>
+                <div class="inputBx">
+                    <span>Name</span>
+                    <input id="name" type="text" placeholder="이름" />
+                </div>
+                <div class="inputBx">
+                    <span>Password</span>
+                    <input id="pw" type="password" placeholder="비밀번호" />
+                    <input id="confirm-pw" type="password" placeholder="비밀번호 확인" />   
+                </div>
+                <div class="inputBx">
+                    <span>Phone</span>
+                    <input id="phone" type="text" placeholder="휴대폰 번호" />
+                </div>      
+
+                <div class="Location">
+                    <div class="inputBx">
+                        <span>Location</span>
+                            <div class="right">
+                                <input id="postBx" type="text" name="zip" placeholder="우편번호">
+                            </div>
+                            <div class="left">
+                                <p id="lBtn">Search</p>
+                            </div>
+                            <input type="text" name="addr1" placeholder="주소">
+                            <input type="text" name="addr2" placeholder="주소 상세">
+                    </div>
+                </div>
+
+                <div class="inputBx">
+                    <p id="registerBtn">SIGN UP</p>    
+                </div>
+
+                <p class="message">Already registered? <a href="/login">Login</a></p>
+            </form>
+
+        </div>
+    </section>
 </body>
 
 </html>

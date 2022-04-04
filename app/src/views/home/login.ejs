@@ -12,16 +12,40 @@
 </head>
 
 <body>
-    <div class="login-page">
-        <div class="form">
+  <section>
+    <div class="imgBx">
+      <img src="/rss/img/couple.jpg">
+    </div>
+
+    <div class="contextBx">
+        <div class="formBx">
+          <h2>Login</h2>
           <form class="login-form">
-            <input id="id" type="text" placeholder="username"/>
-            <input id="pw" type="password" placeholder="password"/>
-            <p id="button">login</p>
-            <p class="message">Not registered? <a href="/register">Create an account</a></p>
+            <div class="inputBx">
+              <span>Username</span>
+              <input id="id" type="text" class="inputBx" placeholder="username"/>
+            </div>
+            <div class="inputBx">
+              <span>Password</span>
+              <input id="pw" type="password" class="inputBx" placeholder="password"/>
+            </div>            
+            <div class="inputBx">
+                <p id="button">login</p>    
+                <!-- <input type="submit" value="Sign in" name="">                 -->
+            </div>
+            <div class="inputBx">
+                <p class="message">Not registered? <a href="/register">Create an account</a></p>
+            </div>            
           </form>
+          <h3>Login with social media</h3>
+                <ul class="social">
+                    <li><img src="/rss/img/facebook.png"></li>
+                    <li><img src="/rss/img/twitter.png"></li>
+                    <li><img src="/rss/img/instagram.png"></li>
+                </ul>
         </div>
       </div>
+    </section>
 </body>
 
 </html>

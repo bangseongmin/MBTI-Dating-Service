@@ -4,10 +4,12 @@ const id = document.querySelector('#id');
 const name = document.querySelector('#name');
 const pw = document.querySelector('#pw');
 const confirmPw = document.querySelector('#confirm-pw');
-const registerBtn = document.querySelector('#button');
+const searchBtn = document.querySelector('#lBtn');
+const registerBtn = document.querySelector('#registerBtn');
 
 // 로그인 시
 registerBtn.addEventListener('click', register);
+searchBtn.addEventListener('click', openZipSearch);
 
 function register() {
     if (!id.value) return alert("아이디를 입력하세요.");
@@ -49,4 +51,14 @@ function register() {
         .catch((err) => {
             console.error(new Error("회원가입 중 에러 발생"));
         })
+}
+
+function openZipSearch(){
+    new daum.Postcode({
+        oncomplete: function(data) {
+        $('[name=zip]').val(data.zonecode); // 우편번호 (5자리)
+        $('[name=addr1]').val(data.address);
+        $('[name=addr2]').val(data.buildingName);
+        }
+    }).open();
 }
