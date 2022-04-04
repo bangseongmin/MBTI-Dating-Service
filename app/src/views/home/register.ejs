@@ -8,8 +8,15 @@
 
     <link rel="stylesheet" href="/css/home/register.css">
     <script src="/js/home/register.js" defer></script>
-    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        $('#phone').keyup(function (event) {
+            event = event || window.event;
+            var _val = this.value.trim();
+            this.value = autoHypenTel(_val);
+        });
+    </script>
     <title>register</title>
 </head>
 
@@ -32,29 +39,29 @@
                 <div class="inputBx">
                     <span>Password</span>
                     <input id="pw" type="password" placeholder="비밀번호" />
-                    <input id="confirm-pw" type="password" placeholder="비밀번호 확인" />   
+                    <input id="confirm-pw" type="password" placeholder="비밀번호 확인" />
                 </div>
                 <div class="inputBx">
                     <span>Phone</span>
                     <input id="phone" type="text" placeholder="휴대폰 번호" />
-                </div>      
+                </div>
 
                 <div class="Location">
                     <div class="inputBx">
                         <span>Location</span>
-                            <div class="right">
-                                <input id="postBx" type="text" name="zip" placeholder="우편번호">
-                            </div>
-                            <div class="left">
-                                <p id="lBtn">Search</p>
-                            </div>
-                            <input type="text" name="addr1" placeholder="주소">
-                            <input type="text" name="addr2" placeholder="주소 상세">
+                        <div class="right">
+                            <input id="postBx" type="text" name="zip" placeholder="우편번호">
+                        </div>
+                        <div class="left">
+                            <p id="lBtn">Search</p>
+                        </div>
+                        <input type="text" name="addr1" placeholder="주소">
+                        <input type="text" name="addr2" placeholder="주소 상세">
                     </div>
                 </div>
 
                 <div class="inputBx">
-                    <p id="registerBtn">SIGN UP</p>    
+                    <p id="registerBtn">SIGN UP</p>
                 </div>
 
                 <p class="message">Already registered? <a href="/login">Login</a></p>
@@ -65,5 +72,3 @@
 </body>
 
 </html>
-
-<!-- Copyright (c) 2022 by Aigars Silkalns (https://codepen.io/colorlib/pen/rxddKy) -->

@@ -4,26 +4,36 @@ const id = document.querySelector('#id');
 const name = document.querySelector('#name');
 const pw = document.querySelector('#pw');
 const confirmPw = document.querySelector('#confirm-pw');
+const phone = document.querySelector('#phone');
+
+const postNum = document.querySelector('input[name="zip"]');
+const addr1 = document.querySelector('input[name="addr1"]');
+const addr2 = document.querySelector('input[name="addr2"]');
+
 const searchBtn = document.querySelector('#lBtn');
 const registerBtn = document.querySelector('#registerBtn');
 
-// 로그인 시
 registerBtn.addEventListener('click', register);
 searchBtn.addEventListener('click', openZipSearch);
 
+
+// 회원가입
 function register() {
     if (!id.value) return alert("아이디를 입력하세요.");
-
+    if(!pw.value) return alert("비밀번호를 입력하세요.");
     if (pw.value !== confirmPw.value) return alert("비밀번호가 일치하지 않습니다.");
     
+    const str = `(${postNum.value})${addr1.value}-${addr2.value}`;
+
     const req = {
         id: id.value,
         name: name.value,
-        pw: pw.value
+        pw: pw.value,
+        phone: phone.value,
+        address: str
     };
 
-    // console.log(req);
-    // console.log(JSON.stringify(req));
+    console.log(JSON.stringify(req));
 
     fetch("/register", {
         method: "POST",
@@ -33,13 +43,6 @@ function register() {
         body: JSON.stringify(req),
     })
         .then((res) => res.json())     // then은 서버에서 응답한 데이터
-
-        /* res.json()의 반환값은 Promise다.
-           기본 res의 반환 값은 Response 스트림인데,
-           .json() 메소드를 통해 Response(응답) 스트림을 읽을 수 있다.
-           Response는 데이터가 모두 받아진 상태가 아니다.
-           .json으로 Resonse 스트림을 가져와 완료될때까지 읽는다.
-           다 읽은 body의 텍스트를 Promise 형태로 반환한다. */
         .then((res) => {
             if (res.success) {
                 location.href = "/login";
@@ -49,10 +52,11 @@ function register() {
             }
         })
         .catch((err) => {
-            console.error(new Error("회원가입 중 에러 발생"));
+            console.error(err);
         })
 }
 
+// 주소 입력
 function openZipSearch(){
     new daum.Postcode({
         oncomplete: function(data) {
@@ -61,4 +65,38 @@ function openZipSearch(){
         $('[name=addr2]').val(data.buildingName);
         }
     }).open();
+}
+
+// 전화번호 하이픈
+var autoHypenPhone = function(str){
+    str = str.replace(/[^0-9]/g, '');
+    var tmp = '';
+    if( str.length < 4){
+        return str;
+    }else if(str.length < 7){
+        tmp += str.substr(0, 3);
+        tmp += '-';
+        tmp += str.substr(3);
+        return tmp;
+    }else if(str.length < 11){
+        tmp += str.substr(0, 3);
+        tmp += '-';
+        tmp += str.substr(3, 3);
+        tmp += '-';
+        tmp += str.substr(6);
+        return tmp;
+    }else{              
+        tmp += str.substr(0, 3);
+        tmp += '-';
+        tmp += str.substr(3, 4);
+        tmp += '-';
+        tmp += str.substr(7);
+        return tmp;
+    }
+
+    return str;
+}
+
+phone.onkeyup = function(){
+    this.value = autoHypenPhone( this.value ) ;  
 }

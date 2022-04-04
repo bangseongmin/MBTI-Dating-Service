@@ -9,11 +9,6 @@ const db = require("../config/dbcon");
     #을 사용해서 정보은닉을 할수 있음(public -> private)            */
 class UserStorage {
 
-
-    static getUsers(isAll, ...fields) {
-
-    }
-
     static getUserInfo(id) {
         // Mysql은 프라미스를 지원해주지 않아 직접 Promise 처리가 필요
         return new Promise((resolve, reject) => {
@@ -28,8 +23,8 @@ class UserStorage {
     static async save(userInfo) {
         // Mysql은 프라미스를 지원해주지 않아 직접 Promise 처리가 필요
         return new Promise((resolve, reject) => {
-            const query = "INSERT INTO users(id, name, pw) VALUES(?, ?, ?);";
-            db.query(query, [userInfo.id, userInfo.name, userInfo.pw], (err)=> {
+            const query = "INSERT INTO users(id, name, pw, phone, address) VALUES(?, ?, ?, ?, ?);";
+            db.query(query, [userInfo.id, userInfo.name, userInfo.pw, userInfo.phone, userInfo.address], (err)=> {
                 if(err) reject(`${err}`);
                 else resolve({ success : true });
             });
@@ -40,8 +35,6 @@ class UserStorage {
 module.exports = UserStorage;
 
 /*
-
-
 static #getUserInfo(data, id) {
     //     const users = JSON.parse(data);
 
