@@ -149,3 +149,46 @@ section .register-page .register-form .inputBx .left #lBtn{
 section .register-page .register-form .inputBx .left #lBtn:hover{
     background: #f53677;
 }
+
+
+/* findUBtn */
+section .register-page .register-form .inputBx #findUBtn {
+    text-transform: uppercase;
+    background: #ff4584;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    border-radius: 30px;
+    text-align: center;
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+section .register-page .register-form .inputBx #findUBtn:hover {
+    background: #f53677;
+}
+
+/* findPBtn */
+section .register-page .register-form .inputBx #findPBtn {
+    text-transform: uppercase;
+    background: #ff4584;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    border-radius: 30px;
+    text-align: center;
+
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+section .register-page .register-form .inputBx #findPBtn:hover {
+    background: #f53677;
+}
+
+#show{
+    background: #d3d3d3;
+}

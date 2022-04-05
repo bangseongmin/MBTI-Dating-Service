@@ -9,8 +9,8 @@ const db = require("../config/dbcon");
     #을 사용해서 정보은닉을 할수 있음(public -> private)            */
 class UserStorage {
 
-    static getUserInfo(id) {
-        // Mysql은 프라미스를 지원해주지 않아 직접 Promise 처리가 필요
+    // 로그인
+    static async getUserInfo(id) {
         return new Promise((resolve, reject) => {
             const query = "SELECT * FROM users WHERE id = ?;";
             db.query(query, [id], (err, data)=> {
@@ -19,9 +19,9 @@ class UserStorage {
             });
         });
     }
-
+    
+    // 회원가입
     static async save(userInfo) {
-        // Mysql은 프라미스를 지원해주지 않아 직접 Promise 처리가 필요
         return new Promise((resolve, reject) => {
             const query = "INSERT INTO users(id, name, pw, phone, address) VALUES(?, ?, ?, ?, ?);";
             db.query(query, [userInfo.id, userInfo.name, userInfo.pw, userInfo.phone, userInfo.address], (err)=> {
@@ -30,6 +30,41 @@ class UserStorage {
             });
         });
     }
+
+    // 아이디 찾기
+    static async getFindInfo(phone) {
+        return new Promise((resolve, reject) => {
+            const query = "SELECT * FROM users WHERE phone = ?;";
+            db.query(query, [phone], (err, data)=> {
+                if(err) reject(`${err}`);
+                else resolve(data[0]);
+            });
+        });
+    }
+
+    // 비밀번호 찾기
+    static async getFindInfo2(id, phone) {
+        return new Promise((resolve, reject) => {
+            const query = "SELECT * FROM users WHERE id = ? && phone = ?;";
+            db.query(query, [id, phone], (err, data)=> {
+                if(err) reject(`${err}`);
+                else resolve(data[0]);
+            });
+        });
+    }
+
+    // 비밀번호 설정 
+    static async updatePassword(id, pw) {
+        // update users SET pw = '1111' WHERE id = '1111';
+        return new Promise((resolve, reject) => {
+            const query = "UPDATE users SET pw = ? WHERE id = ?;";
+            db.query(query, [pw, id], (err, data)=> {
+                if(err) reject(`${err}`);
+                else resolve({ success : true });
+            });
+        });
+    }
+    
 }
 
 module.exports = UserStorage;

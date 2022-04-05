@@ -9,9 +9,12 @@ const ctrl = require("./home.ctrl");
 router.get('/', ctrl.output.home);
 router.get('/login', ctrl.output.login);
 router.get('/register', ctrl.output.register);
+router.get('/findUsername', ctrl.output.findUsername);
+router.get('/findPassword', ctrl.output.findPassword);
 
 router.post('/login', ctrl.process.login);
 router.post('/register', ctrl.process.register);
-
-
+router.post('/findUsername', ctrl.process.findUsername);
+router.post('/findPassword', ctrl.process.findPassword);
+router.post('/updatePassword', ctrl.process.updatePassword);
 module.exports = router;

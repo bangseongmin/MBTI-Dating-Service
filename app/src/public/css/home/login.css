@@ -118,7 +118,6 @@ section .login-page .formBx .inputBx #button:hover{
 /* Don't have an account? */
 section .login-page .formBx .inputBx .message {
   color: #607d8b;
-
 }
 
 section .login-page .formBx .inputBx .message a {

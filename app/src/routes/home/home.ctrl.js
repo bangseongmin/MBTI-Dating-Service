@@ -17,6 +17,16 @@ const output = {
     register: (req, res) =>{
         logger.info(`GET /register 304 "회원가입 화면으로 이동"`);
         res.render("home/register");
+    },
+
+    findUsername: (req, res) =>{
+        logger.info(`GET /register 304 "아이디 찾기 화면으로 이동"`);
+        res.render("home/findUsername");
+    },
+
+    findPassword: (req, res) =>{
+        logger.info(`GET /register 304 "비밀번호 찾기 화면으로 이동"`);
+        res.render("home/findPassword");
     }
 };
 
@@ -45,6 +55,49 @@ const process = {
             path: "/register",
             status: response.err ? 409 : 201,           // 서버측 에러(DB 등)가 발생할 경우의 반환할 상태코드는 500번대, 이미 등록되어 있는 것은 클라이언트 측의 잘못이므로 409
         };
+
+        log(response, url);
+
+        return res.status(url.status).json(response);
+    },
+    findUsername: async(req, res) => {
+        const user = new User(req.body);
+        const response = await user.findUsername();
+
+        const url = {
+            method: "/POST",
+            path: "/findUsername",
+            status: response.err ? 409 : 200,
+        }
+
+        log(response, url);
+
+        return res.status(url.status).json(response);
+    },
+    findPassword: async(req, res) => {
+        const user = new User(req.body);
+        const response = await user.findPassword();
+
+        const url = {
+            method: "/POST",
+            path: "/findPassword",
+            status: response.err ? 409 : 200,
+        }
+
+        log(response, url);
+
+        return res.status(url.status).json(response);
+    },
+
+    updatePassword: async(req, res) => {
+        const user = new User(req.body);
+        const response = await user.updatePassword();
+
+        const url = {
+            method: "/POST",
+            path: "/updatePassword",
+            status: response.err ? 409 : 200,
+        }
 
         log(response, url);
 

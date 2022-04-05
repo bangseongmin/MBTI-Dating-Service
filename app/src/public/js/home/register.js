@@ -33,7 +33,7 @@ function register() {
         address: str
     };
 
-    console.log(JSON.stringify(req));
+    // console.log(JSON.stringify(req));
 
     fetch("/register", {
         method: "POST",

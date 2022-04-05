@@ -45,6 +45,47 @@ class User {
             return { success: false, err };
         }
     }
+
+    async findUsername(){
+        const client = this.body;
+        try{
+            console.log(this.body);
+            const user = await UserStorage.getFindInfo(client.phone);
+            if (user) {
+                const msg = user.id;
+
+                return { success: true, msg: msg};
+            }
+            return { success: false, msg: "가입된 아이디가 없습니다.." };
+        } catch (err) {
+            return { success: false, err };
+        }
+    }
+
+    async findPassword(){
+        const client = this.body;
+        try{
+            console.log(this.body);
+            const user = await UserStorage.getFindInfo2(client.id, client.phone);
+            if (user) {
+                return { success: true};
+            }
+            return { success: false, msg: "가입된 아이디가 없습니다.." };
+        } catch (err) {
+            return { success: false, err };
+        }
+    }
+
+    async updatePassword(){
+        const client = this.body;
+        try{
+            console.log(this.body);
+            const response = await UserStorage.updatePassword(client.id, client.pw);
+            return response;
+        } catch (err) {
+            return { success: false, err };
+        }
+    }
 }
 
 module.exports = User;
