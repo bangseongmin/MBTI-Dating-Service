@@ -1,21 +1,18 @@
 'use strict';
 
+
+
 const id = document.querySelector('#id');
 const name = document.querySelector('#name');
 const pw = document.querySelector('#pw');
 const confirmPw = document.querySelector('#confirm-pw');
 const phone = document.querySelector('#phone');
+const gender = document.getElementById('gender');
+const address = document.getElementById('addr');
 
-const postNum = document.querySelector('input[name="zip"]');
-const addr1 = document.querySelector('input[name="addr1"]');
-const addr2 = document.querySelector('input[name="addr2"]');
-
-const searchBtn = document.querySelector('#lBtn');
 const registerBtn = document.querySelector('#registerBtn');
 
 registerBtn.addEventListener('click', register);
-searchBtn.addEventListener('click', openZipSearch);
-
 
 // 회원가입
 function register() {
@@ -23,14 +20,16 @@ function register() {
     if(!pw.value) return alert("비밀번호를 입력하세요.");
     if (pw.value !== confirmPw.value) return alert("비밀번호가 일치하지 않습니다.");
     
-    const str = `(${postNum.value})${addr1.value}-${addr2.value}`;
+    // console.log(gender.options[gender.selectedIndex].value);
+    // console.log(address.options[address.selectedIndex].value);
 
     const req = {
         id: id.value,
         name: name.value,
         pw: pw.value,
         phone: phone.value,
-        address: str
+        address: address.options[address.selectedIndex].value,
+        gender: gender.options[gender.selectedIndex].value,
     };
 
     // console.log(JSON.stringify(req));
@@ -54,17 +53,6 @@ function register() {
         .catch((err) => {
             console.error(err);
         })
-}
-
-// 주소 입력
-function openZipSearch(){
-    new daum.Postcode({
-        oncomplete: function(data) {
-        $('[name=zip]').val(data.zonecode); // 우편번호 (5자리)
-        $('[name=addr1]').val(data.address);
-        $('[name=addr2]').val(data.buildingName);
-        }
-    }).open();
 }
 
 // 전화번호 하이픈
@@ -100,3 +88,4 @@ var autoHypenPhone = function(str){
 phone.onkeyup = function(){
     this.value = autoHypenPhone( this.value ) ;  
 }
+

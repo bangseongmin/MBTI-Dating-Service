@@ -1,0 +1,9 @@
+/* 전체 CSS */
+*{
+    margin: 0;
+    font-family: 'Nanum Pen Script', cursive;
+}
+
+body{
+    background-color: pink;
+}

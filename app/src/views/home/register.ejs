@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
     <link rel="stylesheet" href="/css/home/register.css">
     <script src="/js/home/register.js" defer></script>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    
+
     <script>
         $('#phone').keyup(function (event) {
             event = event || window.event;
@@ -49,15 +51,35 @@
                 <div class="Location">
                     <div class="inputBx">
                         <span>Location</span>
-                        <div class="right">
-                            <input id="postBx" type="text" name="zip" placeholder="우편번호">
-                        </div>
-                        <div class="left">
-                            <p id="lBtn">Search</p>
-                        </div>
-                        <input type="text" name="addr1" placeholder="주소">
-                        <input type="text" name="addr2" placeholder="주소 상세">
+                        <select name="addr" class="inputBx" id="addr">
+                            <option selected></option>
+                            <option value="seoul">서울 </option>
+                            <option value="gyeonggi">경기 </option>
+                            <option value="incheon">인천</option>
+                            <option value="Gangwon">강원 </option>
+                            <option value="chungnam">충남 </option>
+                            <option value="daejeon">대전 </option>
+                            <option value="chungbug">충북 </option>
+                            <option value="busan">부산 </option>
+                            <option value="ulsan">울산 </option>
+                            <option value="daegu">대구 </option>
+                            <option value="gyeongbug">경북 </option>
+                            <option value="gyeongnam">경남 </option>
+                            <option value="jeonju">전남 </option>
+                            <option value="gwangju">광주 </option>
+                            <option value="jeonbug">전북 </option>
+                            <option value="jeju">제주 </option>
+                        </select>
                     </div>
+                </div>
+
+                <div class="inputBx">
+                    <span>Gender</span>
+                    <select name="gender" class="inputBx" id="gender">
+                        <option></option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
                 </div>
 
                 <div class="inputBx">

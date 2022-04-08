@@ -23,8 +23,8 @@ class UserStorage {
     // 회원가입
     static async save(userInfo) {
         return new Promise((resolve, reject) => {
-            const query = "INSERT INTO users(id, name, pw, phone, address) VALUES(?, ?, ?, ?, ?);";
-            db.query(query, [userInfo.id, userInfo.name, userInfo.pw, userInfo.phone, userInfo.address], (err)=> {
+            const query = "INSERT INTO users(id, name, pw, phone, address, gender) VALUES(?, ?, ?, ?, ?, ?);";
+            db.query(query, [userInfo.id, userInfo.name, userInfo.pw, userInfo.phone, userInfo.address, userInfo.gender], (err)=> {
                 if(err) reject(`${err}`);
                 else resolve({ success : true });
             });

@@ -27,6 +27,11 @@ const output = {
     findPassword: (req, res) =>{
         logger.info(`GET /register 304 "비밀번호 찾기 화면으로 이동"`);
         res.render("home/findPassword");
+    },
+
+    testPage: (req, res) =>{
+        logger.info(`GET /testPage 304 "MBTI 테스트 화면으로 이동"`);
+        res.render("home/testPage");
     }
 };
 
@@ -102,7 +107,7 @@ const process = {
         log(response, url);
 
         return res.status(url.status).json(response);
-    }
+    },
 };
 
 
