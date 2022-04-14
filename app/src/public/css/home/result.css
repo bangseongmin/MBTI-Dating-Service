@@ -47,3 +47,9 @@
     color: pink;
     background-color: whitesmoke;
 }
+
+#resultImg > img{
+    margin-top: 50%;
+
+    width: 100%;
+}
