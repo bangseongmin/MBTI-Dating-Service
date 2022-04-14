@@ -2,9 +2,8 @@ const main = document.querySelector('#main');
 const qna = document.querySelector('#qna');
 const result = document.querySelector('#result');
 
-const endPoint = 12;                            // 질문 개수
-
-const select = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];                              // 설문조사결과
+const endPoint = 12;                                        // 질문 개수
+const select = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];        // 설문조사결과
 
 
 // Test 시작
@@ -24,7 +23,6 @@ function begin(){
         let qIdx = 0;
         goNext(qIdx);
     }, 450);
-
 }
 
 // 다음 설문
@@ -36,7 +34,6 @@ function goNext(qIdx){
     }
 
     var q = document.querySelector('.qBox');
-
     q.innerHTML = qnaList[qIdx].q;
 
     for(let i in qnaList[qIdx].a){
@@ -58,7 +55,7 @@ function addAnswer(answerText, qIdx, idx){
     answer.classList.add('py-3');
     answer.classList.add('mx-auto');
     answer.classList.add('fadeIn');
-    answer.classList.add('fadeOut');
+    // answer.classList.add('fadeOut');
 
     // 위치 지정
     a.appendChild(answer);
@@ -66,11 +63,10 @@ function addAnswer(answerText, qIdx, idx){
     // 설정
     answer.innerHTML = answerText;
     answer.addEventListener('click', function(){
-
         var children = document.querySelectorAll('.answerList');
-        for(let i=0; i<children.length; i++){
-            children[i].disabled = true;
 
+        for(let i=0; i < children.length; i++){
+            children[i].disabled = true;
             children[i].style.WebkitAnimation = "fadeOut 0.5s";
             children[i].style.animation = "fadeOut 0.5s";
         }
@@ -82,11 +78,10 @@ function addAnswer(answerText, qIdx, idx){
                 select[target[i]] += 1;
             }
 
-            select[qIdx] = idx;
-
             for(let i=0; i<children.length; i++){
                 children[i].style.display = 'none';
             }
+
             goNext(++qIdx);
         }, 450);
     }, false);
@@ -104,14 +99,14 @@ function goResult(){
             qna.style.display = "none";
             result.style.display = "block";
         }, 450)});
-
     setResult();
 }
 
 
 // 테스트 결과 연산
 function calResult(){
-    var result = select.indexOf(Math.max(... select));
+    console.log(select);
+    var result = select.indexOf(Math.max(...select));
 
     return result;
 }
@@ -125,10 +120,10 @@ function setResult(){
     var resultImg = document.createElement('img');
     const imgDiv = document.querySelector('#resultImg');
     
-    var imgURL = 'rss/img/image-'+point+'.png';
+    var imgURL = '/rss/img/image-'+point+'.png';
     resultImg.src = imgURL;
     resultImg.alt = point;
-
+    resultImg.classList.add('img-fluid');
     imgDiv.appendChild(resultImg);
 
     const resultDesc = document.querySelector('.resultDesc');

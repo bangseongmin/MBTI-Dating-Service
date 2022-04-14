@@ -32,7 +32,7 @@ const output = {
     testPage: (req, res) =>{
         logger.info(`GET /testPage 304 "MBTI 테스트 화면으로 이동"`);
         res.render("home/testPage");
-    }
+    },
 };
 
 
@@ -110,10 +110,62 @@ const process = {
     },
 };
 
+// test 결과
+const show = {
+    result0: (req, res) =>{
+        logger.info(`GET /testPage 304 "MBTI 테스트 결과 화면으로 이동"`);
+        res.render("testResult/result-0");
+    },
+    result1: (req, res) =>{
+        logger.info(`GET /testPage 304 "MBTI 테스트 결과 화면으로 이동"`);
+        res.render("testResult/result-1");
+    },
+    result2: (req, res) =>{
+        logger.info(`GET /testPage 304 "MBTI 테스트 결과 화면으로 이동"`);
+        res.render("testResult/result-2");
+    },
+    result3: (req, res) =>{
+        logger.info(`GET /testPage 304 "MBTI 테스트 결과 화면으로 이동"`);
+        res.render("testResult/result-3");
+    },
+    result4: (req, res) =>{
+        logger.info(`GET /testPage 304 "MBTI 테스트 결과 화면으로 이동"`);
+        res.render("testResult/result-4");
+    },
+    result5: (req, res) =>{
+        logger.info(`GET /testPage 304 "MBTI 테스트 결과 화면으로 이동"`);
+        res.render("testResult/result-5");
+    },
+    result6: (req, res) =>{
+        logger.info(`GET /testPage 304 "MBTI 테스트 결과 화면으로 이동"`);
+        res.render("testResult/result-6");
+    },
+    result7: (req, res) =>{
+        logger.info(`GET /testPage 304 "MBTI 테스트 결과 화면으로 이동"`);
+        res.render("testResult/result-7");
+    },
+    result8: (req, res) =>{
+        logger.info(`GET /testPage 304 "MBTI 테스트 결과 화면으로 이동"`);
+        res.render("testResult/result-8");
+    },
+    result9: (req, res) =>{
+        logger.info(`GET /testPage 304 "MBTI 테스트 결과 화면으로 이동"`);
+        res.render("testResult/result-9");
+    },
+    result10: (req, res) =>{
+        logger.info(`GET /testPage 304 "MBTI 테스트 결과 화면으로 이동"`);
+        res.render("testResult/result-10");
+    },
+    result11: (req, res) =>{
+        logger.info(`GET /testPage 304 "MBTI 테스트 결과 화면으로 이동"`);
+        res.render("testResult/result-11");
+    },
+}
 
 module.exports = {
     output,
     process,
+    show,
 }
 
 const log = (response, url) => {
