@@ -4,11 +4,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const dotenv = require("dotenv");                   // << 환경변수 저장모듈
+dotenv.config();
+
 const morgan = require('morgan');
 const logger = require('./src/config/logger');
 
 const app = express();
-dotenv.config();    
+    
 
 // routing
 const home = require("./src/routes/home");     

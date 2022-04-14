@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 const id = document.querySelector('#id');
 const name = document.querySelector('#name');
 const pw = document.querySelector('#pw');
@@ -44,7 +42,7 @@ function register() {
         .then((res) => res.json())     // then은 서버에서 응답한 데이터
         .then((res) => {
             if (res.success) {
-                location.href = "/login";
+                location.href = "/";
             } else {
                 if(res.err) return alert(res.err);
                 alert(res.msg);
@@ -53,39 +51,5 @@ function register() {
         .catch((err) => {
             console.error(err);
         })
-}
-
-// 전화번호 하이픈
-var autoHypenPhone = function(str){
-    str = str.replace(/[^0-9]/g, '');
-    var tmp = '';
-    if( str.length < 4){
-        return str;
-    }else if(str.length < 7){
-        tmp += str.substr(0, 3);
-        tmp += '-';
-        tmp += str.substr(3);
-        return tmp;
-    }else if(str.length < 11){
-        tmp += str.substr(0, 3);
-        tmp += '-';
-        tmp += str.substr(3, 3);
-        tmp += '-';
-        tmp += str.substr(6);
-        return tmp;
-    }else{              
-        tmp += str.substr(0, 3);
-        tmp += '-';
-        tmp += str.substr(3, 4);
-        tmp += '-';
-        tmp += str.substr(7);
-        return tmp;
-    }
-
-    return str;
-}
-
-phone.onkeyup = function(){
-    this.value = autoHypenPhone( this.value ) ;  
 }
 

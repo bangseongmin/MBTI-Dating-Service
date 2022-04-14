@@ -65,6 +65,17 @@ class UserStorage {
         });
     }
     
+    // 테스트 결과 확인
+    static async saveTestResult(id) {
+        // update users SET is_test = false WHERE id = 'admin';
+        return new Promise((resolve, reject) => {
+            const query = "UPDATE users SET  is_test = true WHERE id = ?;";
+            db.query(query, [id], (err, data)=> {
+                if(err) reject(`${err}`);
+                else resolve({ success : true });
+            });
+        });
+    }
 }
 
 module.exports = UserStorage;

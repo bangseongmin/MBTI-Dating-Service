@@ -31,68 +31,50 @@ function setShare(){
     });
 }
 
-function kakaoShare(){
-    Kakao.Link.sendDefault({
-        objectType: 'feed',
-        content: {
-        title: '오늘의 디저트',
-        description: '아메리카노, 빵, 케익',
-        imageUrl:
-            'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
-        link: {
-            mobileWebUrl: 'https://developers.kakao.com',
-            androidExecutionParams: 'test',
+function nextPage(){
+    let result = get_query();
+    let id = result["id"];
+    
+    const req = {
+        id: id,
+    };
+
+    fetch("/testPage", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
         },
-        },
-        itemContent: {
-        profileText: 'Kakao',
-        profileImageUrl: 'https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
-        titleImageUrl: 'https://mud-kage.kakao.com/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
-        titleImageText: 'Cheese cake',
-        titleImageCategory: 'Cake',
-        items: [
-            {
-            item: 'Cake1',
-            itemOp: '1000원',
-            },
-            {
-            item: 'Cake2',
-            itemOp: '2000원',
-            },
-            {
-            item: 'Cake3',
-            itemOp: '3000원',
-            },
-            {
-            item: 'Cake4',
-            itemOp: '4000원',
-            },
-            {
-            item: 'Cake5',
-            itemOp: '5000원',
-            },
-        ],
-        sum: '총 결제금액',
-        sumOp: '15000원',
-        },
-        social: {
-        likeCount: 10,
-        commentCount: 20,
-        sharedCount: 30,
-        },
-        buttons: [
-        {
-            title: '웹으로 이동',
-            link: {
-            mobileWebUrl: 'https://developers.kakao.com',
-            },
-        },
-        {
-            title: '앱으로 이동',
-            link: {
-            mobileWebUrl: 'https://developers.kakao.com',
-            },
-        },
-        ]
-    });
-}    
+        body: JSON.stringify(req),
+    }) 
+    .then((res) => res.json())     // then은 서버에서 응답한 데이터
+
+    /* res.json()의 반환값은 Promise다.
+       기본 res의 반환 값은 Response 스트림인데,
+       .json() 메소드를 통해 Response(응답) 스트림을 읽을 수 있다.
+       Response는 데이터가 모두 받아진 상태가 아니다.
+       .json으로 Resonse 스트림을 가져와 완료될때까지 읽는다.
+       다 읽은 body의 텍스트를 Promise 형태로 반환한다. */
+       .then((res) => {
+           if(res.success){
+                location.href = "/selectOne";
+           }else{
+               if(res.err) return alert(res.err);
+               
+               alert(res.msg);
+           }
+       })
+       .catch((err) => {
+           console.error(new Error("로그인 중 에러 발생"));
+       })
+}
+
+function get_query(){ 
+    let url = document.location.href; 
+    let qs = url.substring(url.indexOf('?') + 1).split('&'); 
+    for(var i = 0, result = {}; i < qs.length; i++){ 
+        qs[i] = qs[i].split('='); 
+        result[qs[i][0]] = decodeURIComponent(qs[i][1]); 
+    } 
+    return result; 
+}
+

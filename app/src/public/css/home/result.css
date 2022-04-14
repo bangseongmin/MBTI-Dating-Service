@@ -53,3 +53,17 @@
 
     width: 100%;
 }
+
+.goNext{
+    color: white;
+    background-color: #FEE500;
+    font-size: 20px;
+    border: 0px;
+    border-radius: 20px;
+}
+
+.goNext:hover,
+.goNext:focus {
+    color: #FEE500;
+    background-color: whitesmoke;
+}

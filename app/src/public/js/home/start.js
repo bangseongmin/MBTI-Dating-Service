@@ -129,3 +129,4 @@ function setResult(){
     const resultDesc = document.querySelector('.resultDesc');
     resultDesc.innerHTML = infoList[point].desc;
 }
+

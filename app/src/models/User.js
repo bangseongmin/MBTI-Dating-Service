@@ -23,7 +23,13 @@ class User {
 
             if (user) {
                 if (user.id === client.id && user.pw === client.pw) {
-                    return { success: true };
+                    
+                    if(user.is_test == 0){
+                        return { success: true, msg: "false" };
+                    }
+                    else{
+                        return { success: true, msg: "true" };
+                    }
                 }
                 return { success: false, msg: "비밀번호가 일치하지 않습니다." };
             }
@@ -83,6 +89,17 @@ class User {
             const response = await UserStorage.updatePassword(client.id, client.pw);
             return response;
         } catch (err) {
+            return { success: false, err };
+        }
+    }
+
+    async saveTestResult(){
+        const client = this.body;
+        try{
+            console.log(this.body);
+            const response = await UserStorage.saveTestResult(client.id);
+            return response;
+        }catch (err) {
             return { success: false, err };
         }
     }

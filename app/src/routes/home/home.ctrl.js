@@ -6,7 +6,7 @@ const logger = require('../../config/logger');
 const output = {
     home : (req, res)=>{
         logger.info(`GET / 304 "홈 화면으로 이동"`);
-        res.render("home/index");
+        res.render("home/main");
     },
     
     login : (req, res)=>{
@@ -20,18 +20,22 @@ const output = {
     },
 
     findUsername: (req, res) =>{
-        logger.info(`GET /register 304 "아이디 찾기 화면으로 이동"`);
+        logger.info(`GET /findUsername 304 "아이디 찾기 화면으로 이동"`);
         res.render("home/findUsername");
     },
 
     findPassword: (req, res) =>{
-        logger.info(`GET /register 304 "비밀번호 찾기 화면으로 이동"`);
+        logger.info(`GET /findPassword 304 "비밀번호 찾기 화면으로 이동"`);
         res.render("home/findPassword");
     },
 
     testPage: (req, res) =>{
         logger.info(`GET /testPage 304 "MBTI 테스트 화면으로 이동"`);
         res.render("home/testPage");
+    },
+    selectOne: (req, res) =>{
+        logger.info(`GET /selectOne 304 "MBTI 테스트 화면으로 이동"`);
+        res.render("home/selectOne");
     },
 };
 
@@ -101,6 +105,20 @@ const process = {
         const url = {
             method: "/POST",
             path: "/updatePassword",
+            status: response.err ? 409 : 200,
+        }
+
+        log(response, url);
+
+        return res.status(url.status).json(response);
+    },
+    saveTestResult: async(req, res) => {
+        const user = new User(req.body);
+        const response = await user.saveTestResult();
+
+        const url = {
+            method: "/POST",
+            path: "/testPage",
             status: response.err ? 409 : 200,
         }
 
