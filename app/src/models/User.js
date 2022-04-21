@@ -1,5 +1,6 @@
 "use strict";
 
+const { cli } = require('winston/lib/winston/config');
 const UserStorage = require('./UserStorage');
 
 /*
@@ -101,6 +102,17 @@ class User {
             return response;
         }catch (err) {
             return { success: false, err };
+        }
+    }
+
+    async saveMBTIInfo(){
+        const client = this.body;
+        try{
+            console.log(this.body);
+            const response = await UserStorage.saveMBTIInfo(client);
+            return response;
+        }catch(err){
+            return {success: false, err};
         }
     }
 }

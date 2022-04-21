@@ -5,7 +5,7 @@ const logger = require('../../config/logger');
 
 const output = {
     home : (req, res)=>{
-        logger.info(`GET / 304 "홈 화면으로 이동"`);
+        logger.info(`GET / 304 "메인 화면으로 이동"`);
         res.render("home/main");
     },
     
@@ -16,26 +16,26 @@ const output = {
 
     register: (req, res) =>{
         logger.info(`GET /register 304 "회원가입 화면으로 이동"`);
-        res.render("home/register");
+        res.render("home/login-service/register");
     },
 
     findUsername: (req, res) =>{
         logger.info(`GET /findUsername 304 "아이디 찾기 화면으로 이동"`);
-        res.render("home/findUsername");
+        res.render("home/login-service/findUsername");
     },
 
     findPassword: (req, res) =>{
         logger.info(`GET /findPassword 304 "비밀번호 찾기 화면으로 이동"`);
-        res.render("home/findPassword");
+        res.render("home/login-service/findPassword");
     },
 
     testPage: (req, res) =>{
         logger.info(`GET /testPage 304 "MBTI 테스트 화면으로 이동"`);
-        res.render("home/testPage");
+        res.render("home/mbti-test/testPage");
     },
     selectOne: (req, res) =>{
         logger.info(`GET /selectOne 304 "MBTI 테스트 화면으로 이동"`);
-        res.render("home/selectOne");
+        res.render("home/mbti-test/selectOne");
     },
 };
 
@@ -126,56 +126,70 @@ const process = {
 
         return res.status(url.status).json(response);
     },
+    selectOne: async(req, res) => {
+        const user = new User(req.body);
+        const response = await user.saveMBTIInfo();
+
+        const url = {
+            method: "/POST",
+            path: "/selectOne",
+            status: response.err ? 409 : 200,
+        }
+
+        log(response, url);
+
+        return res.status(url.status).json(response);
+    }
 };
 
 // test 결과
 const result = {
     result0: (req, res) =>{
-        logger.info(`GET /result-0 304 "MBTI 테스트 결과 화면으로 이동"`);
+        logger.info(`GET /testPage/result-0 304 "MBTI 테스트 결과 화면으로 이동"`);
         res.render("testResult/result-0");
     },
     result1: (req, res) =>{
-        logger.info(`GET /result-1 304 "MBTI 테스트 결과 화면으로 이동"`);
+        logger.info(`GET /testPage/result-1 304 "MBTI 테스트 결과 화면으로 이동"`);
         res.render("testResult/result-1");
     },
     result2: (req, res) =>{
-        logger.info(`GET /result-2 304 "MBTI 테스트 결과 화면으로 이동"`);
+        logger.info(`GET /testPage/result-2 304 "MBTI 테스트 결과 화면으로 이동"`);
         res.render("testResult/result-2");
     },
     result3: (req, res) =>{
-        logger.info(`GET /result-3 304 "MBTI 테스트 결과 화면으로 이동"`);
+        logger.info(`GET /testPage/result-3 304 "MBTI 테스트 결과 화면으로 이동"`);
         res.render("testResult/result-3");
     },
     result4: (req, res) =>{
-        logger.info(`GET /result-4 304 "MBTI 테스트 결과 화면으로 이동"`);
+        logger.info(`GET /testPage/result-4 304 "MBTI 테스트 결과 화면으로 이동"`);
         res.render("testResult/result-4");
     },
     result5: (req, res) =>{
-        logger.info(`GET /result-5 304 "MBTI 테스트 결과 화면으로 이동"`);
+        logger.info(`GET /testPage/result-5 304 "MBTI 테스트 결과 화면으로 이동"`);
         res.render("testResult/result-5");
     },
     result6: (req, res) =>{
-        logger.info(`GET /result-6 304 "MBTI 테스트 결과 화면으로 이동"`);
+        logger.info(`GET /testPage/result-6 304 "MBTI 테스트 결과 화면으로 이동"`);
         res.render("testResult/result-6");
     },
     result7: (req, res) =>{
-        logger.info(`GET /result-7 304 "MBTI 테스트 결과 화면으로 이동"`);
+        logger.info(`GET /testPage/result-7 304 "MBTI 테스트 결과 화면으로 이동"`);
         res.render("testResult/result-7");
     },
     result8: (req, res) =>{
-        logger.info(`GET /result-8 304 "MBTI 테스트 결과 화면으로 이동"`);
+        logger.info(`GET /testPage/result-8 304 "MBTI 테스트 결과 화면으로 이동"`);
         res.render("testResult/result-8");
     },
     result9: (req, res) =>{
-        logger.info(`GET /result-9 304 "MBTI 테스트 결과 화면으로 이동"`);
+        logger.info(`GET /testPage/result-9 304 "MBTI 테스트 결과 화면으로 이동"`);
         res.render("testResult/result-9");
     },
     result10: (req, res) =>{
-        logger.info(`GET /result-10 304 "MBTI 테스트 결과 화면으로 이동"`);
+        logger.info(`GET /testPage/result-10 304 "MBTI 테스트 결과 화면으로 이동"`);
         res.render("testResult/result-10");
     },
     result11: (req, res) =>{
-        logger.info(`GET /result-11 304 "MBTI 테스트 결과 화면으로 이동"`);
+        logger.info(`GET /testPage/result-11 304 "MBTI 테스트 결과 화면으로 이동"`);
         res.render("testResult/result-11");
     },
 }

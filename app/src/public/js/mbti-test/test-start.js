@@ -105,7 +105,7 @@ function goResult(){
 
 // 테스트 결과 연산
 function calResult(){
-    console.log(select);
+    // console.log(select);
     var result = select.indexOf(Math.max(...select));
 
     return result;

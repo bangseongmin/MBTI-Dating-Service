@@ -42,7 +42,7 @@ function register() {
         .then((res) => res.json())     // then은 서버에서 응답한 데이터
         .then((res) => {
             if (res.success) {
-                location.href = "/";
+                location.href = "/login";
             } else {
                 if(res.err) return alert(res.err);
                 alert(res.msg);

@@ -34,6 +34,8 @@ function setShare(){
 function nextPage(){
     let result = get_query();
     let id = result["id"];
+    var resultImg = document.querySelector('#resultImg');
+    var userType = resultImg.firstElementChild.alt;
     
     const req = {
         id: id,
@@ -56,7 +58,7 @@ function nextPage(){
        다 읽은 body의 텍스트를 Promise 형태로 반환한다. */
        .then((res) => {
            if(res.success){
-                location.href = "/selectOne";
+                location.href = `/selectOne?id=${id}&userType=${userType}`;
            }else{
                if(res.err) return alert(res.err);
                

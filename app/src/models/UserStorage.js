@@ -76,9 +76,38 @@ class UserStorage {
             });
         });
     }
+
+    static async saveMBTIInfo(userInfo){
+        // SELECT * FROM userMBTI WHERE user_id = "test";
+        return new Promise((resolve, reject) => {
+            let query = "SELECT * FROM userMBTI WHERE user_id = ?;";
+            db.query(query, [userInfo.id], (err, data)=> {
+                if(err) console.log("에러"+err);
+                else{
+                    if(typeof data[0] === 'undefined'){
+                        // INSERT INTO userMBTI(user_id, user_type, user_Otype) values("admin", 1,1);
+                        query = "INSERT INTO userMBTI(user_id, user_type, user_Otype) VALUES(?, ?, ?);";
+                        db.query(query, [userInfo.id, userInfo.userType, userInfo.userOType], (err)=> {
+                            if(err) reject(`${err}`);
+                            else resolve({ success : true });
+                        });
+                    }else{
+                        // update userMBTI SET user_type = 2 where user_id = "test";
+                        query = "UPDATE userMBTI SET user_type = ?, user_Otype = ? WHERE user_id = ?;";
+                        db.query(query, [userInfo.userType, userInfo.userOType, userInfo.id], (err, data)=> {
+                            if(err) reject(`${err}`);
+                            else resolve({ success : true });
+                        });
+                    }
+                }
+            });
+
+        });
+    }
 }
 
 module.exports = UserStorage;
+
 
 /*
 static #getUserInfo(data, id) {

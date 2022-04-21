@@ -20,20 +20,24 @@ router.post('/findUsername', ctrl.process.findUsername);
 router.post('/findPassword', ctrl.process.findPassword);
 router.post('/updatePassword', ctrl.process.updatePassword);
 router.post('/testPage', ctrl.process.saveTestResult);
+router.post('/selectOne', ctrl.process.selectOne);
 
-router.get('/result-0', ctrl.result.result0);
-router.get('/result-1', ctrl.result.result1);
-router.get('/result-2', ctrl.result.result2);
-router.get('/result-3', ctrl.result.result3);
-router.get('/result-4', ctrl.result.result4);
-router.get('/result-5', ctrl.result.result5);
-router.get('/result-6', ctrl.result.result6);
-router.get('/result-7', ctrl.result.result7);
-router.get('/result-8', ctrl.result.result8);
-router.get('/result-9', ctrl.result.result9);
-router.get('/result-10', ctrl.result.result10);
-router.get('/result-11', ctrl.result.result11);
+/* Result Page */
+router.get('/testPage/result-0', ctrl.result.result0);
+router.get('/testPage/result-1', ctrl.result.result1);
+router.get('/testPage/result-2', ctrl.result.result2);
+router.get('/testPage/result-3', ctrl.result.result3);
+router.get('/testPage/result-4', ctrl.result.result4);
+router.get('/testPage/result-5', ctrl.result.result5);
+router.get('/testPage/result-6', ctrl.result.result6);
+router.get('/testPage/result-7', ctrl.result.result7);
+router.get('/testPage/result-8', ctrl.result.result8);
+router.get('/testPage/result-9', ctrl.result.result9);
+router.get('/testPage/result-10', ctrl.result.result10);
+router.get('/testPage/result-11', ctrl.result.result11);
 
+
+/* Result Image for share */
 router.get('/image0', ctrl.image.image0);
 router.get('/image1', ctrl.image.image1);
 router.get('/image2', ctrl.image.image2);
