@@ -13,6 +13,12 @@ router.get('/findUsername', ctrl.output.findUsername);
 router.get('/findPassword', ctrl.output.findPassword);
 router.get('/testPage', ctrl.output.testPage);
 router.get('/selectOne', ctrl.output.selectOne);
+router.get('/logout', ctrl.output.logout);
+
+router.get('/main/chat', ctrl.output.chat);
+router.get('/main/interest', ctrl.output.interest);
+router.get('/main/test', ctrl.output.test);
+router.get('/main/profile', ctrl.output.profile);
 
 router.post('/login', ctrl.process.login);
 router.post('/register', ctrl.process.register);

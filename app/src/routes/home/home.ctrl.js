@@ -5,13 +5,21 @@ const logger = require('../../config/logger');
 
 const output = {
     home : (req, res)=>{
-        logger.info(`GET / 304 "메인 화면으로 이동"`);
-        res.render("home/main");
+        if(req.session.user){
+            logger.info(`GET / 304 "메인 화면으로 이동"`);
+            res.render("home/main");
+        }else{
+            res.render("home/login");
+        }
     },
     
     login : (req, res)=>{
         logger.info(`GET /login 304 "로그인 화면으로 이동"`);
-        res.render("home/login")
+        if(req.session.user){
+            res.render("home/main");
+        }else{
+            res.render("home/login");
+        }
     },
 
     register: (req, res) =>{
@@ -30,30 +38,103 @@ const output = {
     },
 
     testPage: (req, res) =>{
-        logger.info(`GET /testPage 304 "MBTI 테스트 화면으로 이동"`);
-        res.render("home/mbti-test/testPage");
+        if(req.session.user){
+            logger.info(`GET /testPage 304 "MBTI 테스트 화면으로 이동"`);
+            res.render("home/mbti-test/testPage");
+        }else{
+            res.render("home/login");
+        }
     },
     selectOne: (req, res) =>{
-        logger.info(`GET /selectOne 304 "MBTI 테스트 화면으로 이동"`);
-        res.render("home/mbti-test/selectOne");
+        if(req.session.user){
+            logger.info(`GET /selectOne 304 "이상형 선택 화면으로 이동"`);
+            res.render("home/mbti-test/selectOne");
+        }else{
+            res.render("home/login");
+        }
+    },
+    chat: (req, res) =>{
+        if(req.session.user){
+        logger.info(`GET /main/chat 304 "채팅 페이지으로 이동"`);
+        res.render("home/main-page/chat");
+        }else{
+            res.render("home/login");
+        }
+    },
+
+    interest: (req, res) =>{
+        if(req.session.user){
+            logger.info(`GET /main/interest 304 "메시지 및 알림 페이지으로 이동"`);
+            res.render("home/main-page/interest");
+        }else{
+            res.render("home/login");
+        }
+    },
+    test: (req, res) =>{
+        if(req.session.user){
+            logger.info(`GET /main/test 304 "다양한 테스트 페이지로 이동"`);
+            res.render("home/main-page/test");
+        }else{
+            res.render("home/login");
+        }
+    },
+    profile: (req, res) =>{
+        if(req.session.user){
+            logger.info(`GET /main/profile 304 "프로필 페이지로 이동"`);
+            res.render("home/main-page/profile");
+        }else{
+            res.render("home/login");
+        }
+    },
+    logout : async (req, res)=>{
+        logger.info(`GET /login 304 "로그아웃 후 로그인 화면으로 이동"`);
+        if(req.session.user){
+            await req.session.destroy(
+                function(err){
+                    if(err){
+                        console.log('세션 삭제시 에러');
+                        return;
+                    }
+                    console.log('세션 삭제 성공!');
+                    res.render("home/login");
+                }
+            );
+            res.clearCookie('connect.sid');
+        }else{
+            console.log('로그인이 되어 있지 않습니다.');
+            res.render("home/login");
+        }
     },
 };
 
 
 const process = {
     login: async(req, res) => {
+        
         const user = new User(req.body);
         const response = await user.login();
         
-        const url = {
-            method: "/POST",
-            path: "/login",
-            status: response.err ? 400 : 200,
-        };
-
-        log(response, url);
-
-        return res.status(url.status).json(response);
+        if(req.session.user){
+            console.log('이미 로그인 되어 있음');
+            res.writeHead(200, { "Content-Type": "text/html;characterset=utf8" });
+            res.write("<script>alert('이미 로그인 되어있음');</script>");
+            return res.status(300).json(response);
+        }else{
+            req.session.user = {
+                id: user.id,
+                pw: user.pw,
+                authorized:true
+            }
+            const url = {
+                method: "/POST",
+                path: "/login",
+                status: response.err ? 400 : 200,
+            };
+    
+            log(response, url);
+    
+            return res.status(url.status).json(response);   
+        }
     },
     register: async(req, res) =>{
         const user = new User(req.body);
