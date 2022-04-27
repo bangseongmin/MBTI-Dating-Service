@@ -115,6 +115,21 @@ class User {
             return {success: false, err};
         }
     }
+
+    async searchUserInfo(){
+        const client = this.body;
+        try{
+            console.log(this.body);
+            const user = await UserStorage.searchUserInfo(client.id);
+            if (user) {
+                const msg = user;
+
+                return { success: true, msg: msg};
+            }
+        }catch(err){
+            return { success: false, err };
+        }
+    }
 }
 
 module.exports = User;

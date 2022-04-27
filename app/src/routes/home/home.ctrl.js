@@ -7,6 +7,7 @@ const output = {
     home : (req, res)=>{
         if(req.session.user){
             logger.info(`GET / 304 "메인 화면으로 이동"`);
+            // console.log("main"+req.session.user.id);
             res.render("home/main");
         }else{
             res.render("home/login");
@@ -116,15 +117,15 @@ const process = {
         
         if(req.session.user){
             console.log('이미 로그인 되어 있음');
-            res.writeHead(200, { "Content-Type": "text/html;characterset=utf8" });
-            res.write("<script>alert('이미 로그인 되어있음');</script>");
             return res.status(300).json(response);
         }else{
+
             req.session.user = {
-                id: user.id,
-                pw: user.pw,
+                id: req.body.id,
+                pw: req.body.pw,
                 authorized:true
             }
+
             const url = {
                 method: "/POST",
                 path: "/login",
@@ -132,7 +133,6 @@ const process = {
             };
     
             log(response, url);
-    
             return res.status(url.status).json(response);   
         }
     },
@@ -217,6 +217,20 @@ const process = {
             status: response.err ? 409 : 200,
         }
 
+        log(response, url);
+
+        return res.status(url.status).json(response);
+    },
+    searchInfo: async(req, res) => {
+        const user = new User(req.body);
+        const response = await user.searchUserInfo();
+        
+        const url = {
+            method: "/POST",
+            path: "/searchInfo",
+            status: response.err ? 409 : 200,
+        }
+        
         log(response, url);
 
         return res.status(url.status).json(response);

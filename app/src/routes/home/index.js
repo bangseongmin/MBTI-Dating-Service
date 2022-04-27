@@ -27,6 +27,7 @@ router.post('/findPassword', ctrl.process.findPassword);
 router.post('/updatePassword', ctrl.process.updatePassword);
 router.post('/testPage', ctrl.process.saveTestResult);
 router.post('/selectOne', ctrl.process.selectOne);
+router.post('/searchInfo', ctrl.process.searchInfo);
 
 /* Result Page */
 router.get('/testPage/result-0', ctrl.result.result0);

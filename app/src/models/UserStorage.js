@@ -72,11 +72,12 @@ class UserStorage {
             const query = "UPDATE users SET  is_test = true WHERE id = ?;";
             db.query(query, [id], (err, data)=> {
                 if(err) reject(`${err}`);
-                else resolve({ success : true });
+                else resolve(data[0]);
             });
         });
     }
 
+    // MBTI 정보 저장
     static async saveMBTIInfo(userInfo){
         // SELECT * FROM userMBTI WHERE user_id = "test";
         return new Promise((resolve, reject) => {
@@ -102,6 +103,16 @@ class UserStorage {
                 }
             });
 
+        });
+    }
+
+    static async searchUserInfo(id){
+        return new Promise((resolve, reject) => {
+            const query = "SELECT * FROM users WHERE id = ?;";
+            db.query(query, [id], (err, data)=> {
+                if(err) reject(`${err}`);
+                else resolve(data[0]);
+            });
         });
     }
 }
