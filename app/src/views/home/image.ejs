@@ -28,10 +28,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+    <script src="/js/mbti-test/share.js"></script>
+    <script>
+        function start(){
+            let idx = window.location.pathname.split('/')[2];
+            window.location.href = `/rss/img/image-${idx}.png`;
+        }        
+        start();
+    </script>
 </head>
 <body>
-    <div id="resultImg" class="my-3 col-lg-6 col-md-8 col-sm-10 col-12 mx-auto">
-        <img src="/rss/img/image-5.png"/>
-    </div>    
 </body>
 </html>

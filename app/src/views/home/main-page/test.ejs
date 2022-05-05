@@ -7,14 +7,26 @@
     <title>MBTI-Dating</title>
     <!-- Library -->
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <!-- JavaScript Bundle with Popper -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
 
     <!-- Style -->
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/main/main.css">
+    <link rel="stylesheet" href="/css/main/test.css">
+    <script>
+
+    </script>
 </head>
 <body>
+
     <!-- Menu toggle -->
     <input type="checkbox" id="nav-toggle">
-    
     <!-- sidebar-menu -->
     <div class="sidebar">
         <div class="sidebar-brand">
@@ -84,13 +96,67 @@
 
         <!-- main part -->
         <main>
-            <div class="dashboard cards">
-                
+            <div class="title">
+                <h1>금주의 <span id="HOT">HOT</span>한 테스트</h1>
             </div>
 
-            <div class="recent-grid">
+            <div class="rank">
+                <div class="wrap">
+                    <div id="cards-box" class="row row-cols-1 row-cols-md-4 g-4">
+                        <div class="col">
+                            <div class="card">
+                                <img src="https://d2k6w3n3qf94c4.cloudfront.net/media/test_detail/thumb_min/thumbnail_1_X23viFX.png"
+                                     class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">직장인 탈출각 테스트</h5>
+                                    <p class="card-text">여기에 내용이 들어갑니다.</p>
+                                    <p>⭐⭐⭐⭐⭐</p>
+                                    <p class="mycomment">여기에 코멘트가 들어갑니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <img src="https://d2k6w3n3qf94c4.cloudfront.net/media/test_detail/thumb_min/%E1%84%8E%E1%85%AC%E1%84%8C%E1%85%A9%E1%86%BC.png"
+                                     class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">사회생활 자아테스트</h5>
+                                    <p class="card-text">여기에 내용이 들어갑니다.</p>
+                                    <p>⭐⭐⭐⭐</p>
+                                    <p class="mycomment">여기에 코멘트가 들어갑니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <img src="https://d2k6w3n3qf94c4.cloudfront.net/media/test_detail/thumb_min/brandi_thumbnail.png"
+                                     class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">퍼스널 모드 테스트</h5>
+                                    <p class="card-text">여기에 내용이 들어갑니다.</p>
+                                    <p>⭐⭐⭐⭐</p>
+                                    <p class="mycomment">여기에 코멘트가 들어갑니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <img src="https://d2k6w3n3qf94c4.cloudfront.net/media/test_detail/thumb_min/thumbnail_nfzakHU.png"
+                                     class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">실전 연애 테스트</h5>
+                                    <p class="card-text">여기에 내용이 들어갑니다.</p>
+                                    <p>⭐⭐⭐⭐</p>
+                                    <p class="mycomment">여기에 코멘트가 들어갑니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
+    <script src="/js/main/main.js"></script>
+    <script src="/js/mbti-test/share.js"></script>
 </body>
 </html>

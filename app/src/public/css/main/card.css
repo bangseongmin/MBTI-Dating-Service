@@ -114,23 +114,18 @@ body {
 .select{
     /* display: grid;
     align-items: center;     */
-    margin: 20px auto 0px auto; /* 중앙 정렬 */
-
+	margin-top: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .content .card .user {
-    max-width: 500px;
-	width: 100%;
+	width: 380px;
 	height: 450px;
-
-
 	object-fit: cover;
 	border-radius: 10px;
 	box-shadow: 0 1px 10px 0 rgba(0, 20, 20, 0.5);
-    
 }
 
 .content .card .user .profile {
@@ -140,7 +135,7 @@ body {
 }
 
 .content .card .user .name {
-	color: #fff;
+	color: black;
 	font-size: 32px;
 	font-weight: 700;
 	letter-spacing: 0.5px;
@@ -163,7 +158,8 @@ body {
 }
 
 .content .card .local span {
-	color: #fff;
+	color: #DD2F6E;
+	font-size: 26px;
 	padding: 0 10px;
 	text-shadow: 1px 1px 5px #444;
 }
@@ -193,8 +189,8 @@ body {
 .content .buttons .star,
 .content .buttons .heart {
 	background-color: #fff;
-	width: 50px;
-	height: 50px;
+	width: 70px;
+	height: 70px;
 	box-shadow: 0 1px 10px 0 rgba(0, 20, 20, 0.1);
 	display: flex;
 	justify-content: center;
@@ -211,8 +207,7 @@ body {
 }
 
 .content .buttons .star {
-	width: 50px;
-	height: 50px;
+	width: 60px;
+	height: 60px;
 }
-
 

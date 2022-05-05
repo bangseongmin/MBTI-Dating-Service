@@ -1,0 +1,37 @@
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+#HOT{
+    color: palevioletred;
+}
+
+.title{
+    background: green;
+
+    width: 100%;
+    height: 300px;
+
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://mblogthumb-phinf.pstatic.net/MjAxODA1MjFfMjkg/MDAxNTI2ODcxMjE1MjI4.u7J8tVJYg-ahA9XT_HU7pyYZzCLnoe11Vi-A6HZY5owg.JG9PEiyCMWwcH70FN8vUABMwgAp1rFWaQNmRuFBWH9Qg.JPEG.justiloveyou/%EB%9D%BC%EB%9D%BC%EB%9E%9C%EB%93%9C%ED%8F%AC%EC%8A%A4%ED%84%B0%EC%9E%AC%EA%B5%AC%EC%84%B1.jpg?type=w800");
+    background-position: center;
+    background-size: cover;
+
+    color: white;
+
+    /* 내용물 정렬하는 방법 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrap {
+    max-width: 1350px;
+    width: 95%;
+    height: 100px;
+    margin: 20px auto 0px auto;
+}
+
+.mycomment {
+    color: gray;
+}

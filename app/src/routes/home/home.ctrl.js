@@ -2,13 +2,13 @@
 
 const User = require('../../models/User');
 const logger = require('../../config/logger');
-
 const output = {
     home : (req, res)=>{
         if(req.session.user){
             logger.info(`GET / 304 "메인 화면으로 이동"`);
-            // console.log("main"+req.session.user.id);
-            res.render("home/main");
+
+            let userID = req.session.user.id;
+            return res.render("home/main", {data: userID});
         }else{
             res.render("home/login");
         }
@@ -239,105 +239,30 @@ const process = {
 
 // test 결과
 const result = {
-    result0: (req, res) =>{
-        logger.info(`GET /testPage/result-0 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("testResult/result-0");
+    result: (req, res) =>{
+        let idx = req.params.n;
+        if(idx > 11){
+            logger.info(`GET /image/image${idx} 404 "요청한 페이지가 존재하지 않습니다."`);
+            res.render("home/login");
+        }else{
+            logger.info(`GET /testPage/result-${idx} 304 "MBTI 테스트 결과 화면으로 이동"`);
+            res.render(`testResult/result-${idx}`);
+        }
     },
-    result1: (req, res) =>{
-        logger.info(`GET /testPage/result-1 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("testResult/result-1");
-    },
-    result2: (req, res) =>{
-        logger.info(`GET /testPage/result-2 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("testResult/result-2");
-    },
-    result3: (req, res) =>{
-        logger.info(`GET /testPage/result-3 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("testResult/result-3");
-    },
-    result4: (req, res) =>{
-        logger.info(`GET /testPage/result-4 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("testResult/result-4");
-    },
-    result5: (req, res) =>{
-        logger.info(`GET /testPage/result-5 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("testResult/result-5");
-    },
-    result6: (req, res) =>{
-        logger.info(`GET /testPage/result-6 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("testResult/result-6");
-    },
-    result7: (req, res) =>{
-        logger.info(`GET /testPage/result-7 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("testResult/result-7");
-    },
-    result8: (req, res) =>{
-        logger.info(`GET /testPage/result-8 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("testResult/result-8");
-    },
-    result9: (req, res) =>{
-        logger.info(`GET /testPage/result-9 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("testResult/result-9");
-    },
-    result10: (req, res) =>{
-        logger.info(`GET /testPage/result-10 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("testResult/result-10");
-    },
-    result11: (req, res) =>{
-        logger.info(`GET /testPage/result-11 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("testResult/result-11");
-    },
+    
 }
 
 const image = {
-    image0: (req, res) =>{
-        logger.info(`GET /image/image0 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("image/image0");
-    },
-    image1: (req, res) =>{
-        logger.info(`GET /image/image1 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("image/image1");
-    },
-    image2: (req, res) =>{
-        logger.info(`GET /image/image2 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("image/image2");
-    },
-    image3: (req, res) =>{
-        logger.info(`GET /image/image3 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("image/image3");
-    },
-    image4: (req, res) =>{
-        logger.info(`GET /image/image4 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("image/image4");
-    },
-    image5: (req, res) =>{
-        logger.info(`GET /image/image5 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("image/image5");
-    },
-    image6: (req, res) =>{
-        logger.info(`GET /image/image6 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("image/image6");
-    },
-    image7: (req, res) =>{
-        logger.info(`GET /image/image7 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("image/image7");
-    },
-    image8: (req, res) =>{
-        logger.info(`GET /image/image8 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("image/image8");
-    },
-    image9: (req, res) =>{
-        logger.info(`GET /image/image9 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("image/image9");
-    },
-    image10: (req, res) =>{
-        logger.info(`GET /image/image10 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("image/image10");
-    },
-    image11: (req, res) =>{
-        logger.info(`GET /image/image11 304 "MBTI 테스트 결과 화면으로 이동"`);
-        res.render("image/image11");
-    },
+    image: (req, res) =>{  
+        let idx = req.params.n;
+        if(idx > 11){
+            logger.info(`GET /image/image${idx} 404 "요청한 페이지가 존재하지 않습니다."`);
+            res.render("home/login");
+        }else{
+            logger.info(`GET /image/image${idx} 304 "MBTI 테스트 결과 화면으로 이동"`);
+            res.render(`home/image`);
+        }
+    }
 }
 
 module.exports = {

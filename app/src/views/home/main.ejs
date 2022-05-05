@@ -1,26 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>MBTI-Dating</title>
     <!-- Library -->
-    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 
-    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <!-- Style -->
     <link rel="stylesheet" href="/css/main/main.css">
     <link rel="stylesheet" href="/css/main/card.css">
-    <script>
-        $(document).ready(function(){
+    <script type="text/javascript">
+        $(document).ready(function () {
             setProfile();
             getInit();
         })
 
+        alert(session.getAttribute('connect.sid'));
     </script>
 </head>
+
 <body>
     <!-- Menu toggle -->
     <input type="checkbox" id="nav-toggle">
@@ -33,33 +44,33 @@
             <ul>
                 <li>
                     <a href="/main" class="active"><span class="las la-home"></span>
-                    <span>Home</span></a>
+                        <span>Home</span></a>
                 </li>
                 <li>
                     <a href="/main/test"><span class="las la-pen"></span>
-                    <span>MBTI-Test</span></a>
+                        <span>MBTI-Test</span></a>
                 </li>
                 <li>
                     <a href="/main/interest"><span class="lab la-gratipay"></span>
-                    <span>Interest</span></a>
+                        <span>Interest</span></a>
                 </li>
                 <li>
                     <a href="/main/chat"><span class="las la-comment-alt"></span>
-                    <span>Chat</span></a>
+                        <span>Chat</span></a>
                 </li>
                 <li>
                     <a href="/main/profile"><span class="las la-user"></span>
-                    <span>Profile</span></a>
+                        <span>Profile</span></a>
                 </li>
 
                 <li>
                     <a href="/logout"><span class="las la-sign-out-alt"></span>
-                    <span>Logout</span></a>
+                        <span>Logout</span></a>
                 </li>
             </ul>
         </div>
     </div>
-    
+
     <!-- main-content -->
     <div class="main-content">
         <!-- header part -->
@@ -85,7 +96,7 @@
             <div class="user-wrapper">
                 <img src="/rss/img/testProfile.jpg" width="40px" height="40px" alt="">
                 <div>
-                    <h4 id="userId">John Doe</h4>
+                    <h4 id="userId"><%=data%></h4>
                     <small id="userName">Super admin</small>
                 </div>
             </div>
@@ -94,7 +105,7 @@
         <!-- main part -->
         <main>
             <div class="dashboard cards">
-                
+
                 <!-- current customer -->
                 <div class="card-single">
                     <div>
@@ -137,7 +148,7 @@
                 </div>
             </div>
 
-            <div class="recent-grid">
+            <!-- <div class="recent-grid">
                 <div class="customers">
                     <div class="card">
                         <div class="card-header">
@@ -238,19 +249,19 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>  -->
 
             <div class="select">
                 <!-- 우측 콘텐츠 -->
                 <div class="content">
                     <div class="card">
                         <div class="user">
-                            <img class="user" src="https://images.unsplash.com/photo-1532910404247-7ee9488d7292?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=375&q=80"/>
+                            <img class="user" src="/rss/img/image-0.png" />
                             <div class="profile">
-                                <div class="name">Rafaela <span>20</span></div>
+                                <div class="name">김태희<span>20 살</span></div>
                                 <div class="local">
                                     <i class="fas fa-map-marker-alt"></i>
-                                    <span>a 20 quilômetros daqui</span>
+                                    <span>ISFJ</span>
                                 </div>
                             </div>
                         </div>
@@ -271,12 +282,12 @@
                 <div class="content">
                     <div class="card">
                         <div class="user">
-                            <img class="user" src="https://images.unsplash.com/photo-1532910404247-7ee9488d7292?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=375&q=80"/>
+                            <img class="user" src="/rss/img/image-4.png" />
                             <div class="profile">
-                                <div class="name">Rafaela <span>20</span></div>
+                                <div class="name">김선아<span>25 살</span></div>
                                 <div class="local">
                                     <i class="fas fa-map-marker-alt"></i>
-                                    <span>a 20 quilômetros daqui</span>
+                                    <span>ISFJ</span>
                                 </div>
                             </div>
                         </div>
@@ -297,12 +308,12 @@
                 <div class="content">
                     <div class="card">
                         <div class="user">
-                            <img class="user" src="https://images.unsplash.com/photo-1532910404247-7ee9488d7292?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=375&q=80"/>
+                            <img class="user" src="/rss/img/image-2.png" />
                             <div class="profile">
-                                <div class="name">Rafaela <span>20</span></div>
+                                <div class="name">최성아<span>23 살</span></div>
                                 <div class="local">
                                     <i class="fas fa-map-marker-alt"></i>
-                                    <span>a 20 quilômetros daqui</span>
+                                    <span>ISFJ</span>
                                 </div>
                             </div>
                         </div>
@@ -323,7 +334,10 @@
         </main>
     </div>
 
+
+
     <script src="/js/main/main.js"></script>
     <script src="/js/mbti-test/share.js"></script>
 </body>
+
 </html>

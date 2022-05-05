@@ -33,5 +33,12 @@ function setProfile(){
 }
 
 function getInit(){
+    let result = get_query();
+    let id = result["id"];
+
+    const req = {
+        id: id,
+    };
+
     
 }
