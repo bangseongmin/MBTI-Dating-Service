@@ -10,6 +10,13 @@
 
     <!-- Style -->
     <link rel="stylesheet" href="/css/main/main.css">
+    <link rel="stylesheet" href="/css/main/profile.css">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            setProfile();
+            getInit();
+        })
+    </script>
 </head>
 <body>
     <!-- Menu toggle -->
@@ -76,21 +83,25 @@
             <div class="user-wrapper">
                 <img src="/rss/img/testProfile.jpg" width="40px" height="40px" alt="">
                 <div>
-                    <h4>John Doe</h4>
-                    <small>Super admin</small>
+                    <h4>admin</h4>
+                    <small>홍길동</small>
                 </div>
             </div>
         </header>
 
         <!-- main part -->
         <main>
-            <div class="dashboard cards">
-                
-            </div>
-
-            <div class="recent-grid">
+            
+            <div class="myinfo">
+                <img src="/rss/img/test.png">
+                <!-- <h4>Account : admin</h4>
+                <h4>Name : 홍길동</h4>
+                <h4>MBTI : INTP</h4>
+                <h4>참여 테스트 : 1</h4> -->
             </div>
         </main>
     </div>
+    <script src="/js/main/main.js"></script>
+    <script src="/js/mbti-test/share.js"></script>
 </body>
 </html>
