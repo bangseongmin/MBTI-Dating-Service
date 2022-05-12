@@ -1,5 +1,9 @@
 'use strict';
 
+$(document).ready(function () {
+    setProfile();
+    getInit();
+})
 
 function setProfile(){
     let result = get_query();
