@@ -1,6 +1,5 @@
 "use strict";
 
-const { cli } = require('winston/lib/winston/config');
 const UserStorage = require('./UserStorage');
 
 /*
