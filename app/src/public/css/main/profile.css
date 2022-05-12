@@ -1,0 +1,11 @@
+.myinfo > img{
+    padding: 5px;
+
+    /* border: 1px solid #8390A2;
+    background-color:whitesmoke; */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
