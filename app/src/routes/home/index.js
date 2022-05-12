@@ -32,7 +32,8 @@ router.post('/findUsername', ctrl.process.findUsername);
 router.post('/findPassword', ctrl.process.findPassword);
 router.post('/updatePassword', ctrl.process.updatePassword);
 router.post('/testPage', ctrl.process.saveTestResult);
-router.post('/selectOne', ctrl.process.selectOne);
+router.post('/saveMBTI', ctrl.process.saveMBTI);
 router.post('/searchInfo', ctrl.process.searchInfo);
+router.post('/searchUserMBTI', ctrl.process.searchUserMBTI);
 
 module.exports = router;

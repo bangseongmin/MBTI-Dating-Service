@@ -1,6 +1,7 @@
 "use strict";
 
 const User = require('../../models/User');
+const UserMBTI = require('../../models/UserMBTI');
 const logger = require('../../config/logger');
 const output = {
     home : (req, res)=>{
@@ -105,9 +106,8 @@ const output = {
             console.log('로그인이 되어 있지 않습니다.');
             res.render("home/login");
         }
-    },
+    }
 };
-
 
 const process = {
     login: async(req, res) => {
@@ -178,7 +178,6 @@ const process = {
 
         return res.status(url.status).json(response);
     },
-
     updatePassword: async(req, res) => {
         const user = new User(req.body);
         const response = await user.updatePassword();
@@ -207,12 +206,12 @@ const process = {
 
         return res.status(url.status).json(response);
     },
-    selectOne: async(req, res) => {
+    saveMBTI: async(req, res) => {
         const user = new User(req.body);
         const response = await user.saveMBTIInfo();
 
         const url = {
-            method: "/POST",
+            method: "/GET",
             path: "/selectOne",
             status: response.err ? 409 : 200,
         }
@@ -220,14 +219,28 @@ const process = {
         log(response, url);
 
         return res.status(url.status).json(response);
-    },
+    },    
     searchInfo: async(req, res) => {
         const user = new User(req.body);
         const response = await user.searchUserInfo();
         
         const url = {
             method: "/POST",
-            path: "/searchInfo",
+            path: `/searchInfo`,
+            status: response.err ? 409 : 200,
+        }
+        
+        log(response, url);
+
+        return res.status(url.status).json(response);
+    },
+    searchUserMBTI: async(req, res) => {
+        const user = new UserMBTI(req.body);
+        const response = await user.searchMBTIInfo();
+
+        const url = {
+            method: "/POST",
+            path: "/searchUserMBTI",
             status: response.err ? 409 : 200,
         }
         
