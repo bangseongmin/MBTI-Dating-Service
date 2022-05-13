@@ -5,10 +5,8 @@ $(document).ready(function () {
     getInit();
 })
 
-function setProfile(){
-    let result = get_query();
-    const id = result["id"];
-    $('#userId').text(id);
+async function setProfile(){
+    let id = await getUser();
 
     const req = {
         id: id,

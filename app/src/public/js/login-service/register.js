@@ -53,3 +53,14 @@ function register() {
         })
 }
 
+function setAge(){
+    let temp_html = ``;
+
+    for(let i=20; i<=50; i++){
+        temp_html = `<option value="${i}세">${i} 세</option>`
+        $('#age').append(temp_html);
+    }
+}
+
+
+$(document).ready(function() { setAge(); });

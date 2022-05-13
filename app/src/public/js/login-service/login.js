@@ -17,9 +17,7 @@ function login() {
         pw: pw.value,
     };
 
-    // console.log(req);
-    // console.log(JSON.stringify(req));
-    
+
     fetch("/login", {
         method: "POST",
         headers: {
@@ -37,12 +35,10 @@ function login() {
        다 읽은 body의 텍스트를 Promise 형태로 반환한다. */
        .then((res) => {
            if(res.success){
-               let str = id.value;
-               
                if(res.msg == 'true'){
-                    location.href = `/main?id=${str}`;       
+                    location.href = `/main`;       
                }else{
-                    location.href = `/testPage?id=${str}`;              
+                    location.href = `/testPage`;              
                }
            }else{
                if(res.err) return alert(res.err);
