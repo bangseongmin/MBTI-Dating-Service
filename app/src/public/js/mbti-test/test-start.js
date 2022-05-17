@@ -102,7 +102,6 @@ function goResult(){
     setResult();
 }
 
-
 // 테스트 결과 연산
 function calResult(){
     // console.log(select);

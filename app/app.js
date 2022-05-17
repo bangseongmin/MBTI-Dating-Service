@@ -23,9 +23,9 @@ app.set("views", "./src/views");
 app.set("view engine", "ejs");
 app.use(express.static(`${__dirname}/src/public`));
 app.use(bodyParser.json());
-app.use(cookieParser('test@1234'));
+app.use(cookieParser('test'));
 app.use(expressSession({
-    secret: 'test@1234',
+    secret: 'test',
     resave: false,
     saveUninitialized:true,
     cookie: {

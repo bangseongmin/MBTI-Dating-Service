@@ -3,6 +3,7 @@
 const User = require('../../models/User');
 const UserMBTI = require('../../models/UserMBTI');
 const logger = require('../../config/logger');
+
 const output = {
     home : (req, res)=>{
         if(req.session.user){
@@ -10,6 +11,15 @@ const output = {
 
             let userID = req.session.user.id;
             return res.render("home/main", {data: userID});
+        }else{
+            res.render("home/login");
+        }
+    },
+    getUser: (req, res) => {
+        if(req.session.user){
+            let userID = req.session.user.id;
+            logger.info(`GET / 304 "사용자 정보 획득`);
+            res.json(userID);
         }else{
             res.render("home/login");
         }
@@ -47,7 +57,8 @@ const output = {
             res.render("home/login");
         }
     },
-    selectOne: (req, res) =>{
+
+    selectOne: (req, res) =>{                                                   // 삭제 예정
         if(req.session.user){
             logger.info(`GET /selectOne 304 "이상형 선택 화면으로 이동"`);
             res.render("home/mbti-test/selectOne");
@@ -55,6 +66,7 @@ const output = {
             res.render("home/login");
         }
     },
+
     chat: (req, res) =>{
         if(req.session.user){
         logger.info(`GET /main/chat 304 "채팅 페이지으로 이동"`);
@@ -72,6 +84,7 @@ const output = {
             res.render("home/login");
         }
     },
+
     test: (req, res) =>{
         if(req.session.user){
             logger.info(`GET /main/test 304 "다양한 테스트 페이지로 이동"`);
@@ -80,6 +93,7 @@ const output = {
             res.render("home/login");
         }
     },
+
     profile: (req, res) =>{
         if(req.session.user){
             logger.info(`GET /main/profile 304 "프로필 페이지로 이동"`);
@@ -88,6 +102,7 @@ const output = {
             res.render("home/login");
         }
     },
+
     logout : async (req, res)=>{
         logger.info(`GET /login 304 "로그아웃 후 로그인 화면으로 이동"`);
         if(req.session.user){
@@ -97,7 +112,7 @@ const output = {
                         console.log('세션 삭제시 에러');
                         return;
                     }
-                    console.log('세션 삭제 성공!');
+                    console.log('세션 삭제 성공!');                    
                     res.render("home/login");
                 }
             );
@@ -114,12 +129,11 @@ const process = {
         
         const user = new User(req.body);
         const response = await user.login();
-        
+
         if(req.session.user){
             console.log('이미 로그인 되어 있음');
             return res.status(300).json(response);
         }else{
-
             req.session.user = {
                 id: req.body.id,
                 pw: req.body.pw,
@@ -133,6 +147,7 @@ const process = {
             };
     
             log(response, url);
+
             return res.status(url.status).json(response);   
         }
     },
@@ -192,27 +207,15 @@ const process = {
 
         return res.status(url.status).json(response);
     },
-    saveTestResult: async(req, res) => {
-        const user = new User(req.body);
-        const response = await user.saveTestResult();
-
-        const url = {
-            method: "/POST",
-            path: "/testPage",
-            status: response.err ? 409 : 200,
-        }
-
-        log(response, url);
-
-        return res.status(url.status).json(response);
-    },
     saveMBTI: async(req, res) => {
+
+        
         const user = new User(req.body);
         const response = await user.saveMBTIInfo();
 
         const url = {
-            method: "/GET",
-            path: "/selectOne",
+            method: "/POST",
+            path: "/saveMBTI",
             status: response.err ? 409 : 200,
         }
 
@@ -247,6 +250,20 @@ const process = {
         log(response, url);
 
         return res.status(url.status).json(response);
+    },
+    saveTestResult: async(req, res) => {                    
+        const user = new User(req.body.id);
+        const response = await user.saveTestResult();
+
+        const url = {
+            method: "/POST",
+            path: "/testPage",
+            status: response.err ? 409 : 200,
+        }
+
+        log(response, url);
+
+        return res.status(url.status).json(response);
     }
 };
 
@@ -278,11 +295,13 @@ const image = {
     }
 }
 
+
+
 module.exports = {
     output,
     process,
     result,
-    image
+    image,
 }
 
 const log = (response, url) => {

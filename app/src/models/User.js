@@ -87,7 +87,7 @@ class User {
         try{
             console.log(this.body);
             const response = await UserStorage.updatePassword(client.id, client.pw);
-            return response;
+            return { success: true};;
         } catch (err) {
             return { success: false, err };
         }
@@ -96,9 +96,9 @@ class User {
     async saveTestResult(){
         const client = this.body;
         try{
-            console.log(this.body);
+            console.log(client);
             const response = await UserStorage.saveTestResult(client.id);
-            return response;
+            return { success: true};;
         }catch (err) {
             return { success: false, err };
         }
@@ -109,7 +109,7 @@ class User {
         try{
             console.log(this.body);
             const response = await UserStorage.saveMBTIInfo(client);
-            return response;
+            return { success: true};
         }catch(err){
             return {success: false, err};
         }
