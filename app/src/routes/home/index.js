@@ -6,19 +6,19 @@ const router = express.Router();
 const ctrl = require("./home.ctrl");
 
 /* Router */
-router.get('/', ctrl.output.login);
+router.get('/', ctrl.output.home);
+router.get('/login', ctrl.output.login);
 router.get('/getUser', ctrl.output.getUser);
-router.get('/main', ctrl.output.home);
 router.get('/register', ctrl.output.register);
 router.get('/findUsername', ctrl.output.findUsername);
 router.get('/findPassword', ctrl.output.findPassword);
 router.get('/testPage', ctrl.output.testPage);
 router.get('/logout', ctrl.output.logout);
 router.get('/selectOne', ctrl.output.selectOne);
-router.get('/main/chat', ctrl.output.chat);
-router.get('/main/interest', ctrl.output.interest);
-router.get('/main/test', ctrl.output.test);
-router.get('/main/profile', ctrl.output.profile);
+router.get('/chat', ctrl.output.chat);
+router.get('/interest', ctrl.output.interest);
+router.get('/test', ctrl.output.test);
+router.get('/profile', ctrl.output.profile);
 
 /* Result Page */
 router.get('/testPage/:n', ctrl.result.result);

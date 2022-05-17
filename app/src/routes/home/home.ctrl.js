@@ -10,7 +10,6 @@ const output = {
             logger.info(`GET / 304 "메인 화면으로 이동"`);
 
             let userID = req.session.user.id;
-            console.log(userID);
             return res.render("home/main", {data: userID});
         }else{
             res.render("home/login");
@@ -19,7 +18,7 @@ const output = {
     getUser: (req, res) => {
         if(req.session.user){
             let userID = req.session.user.id;
-            logger.info(`GET / 304 "사용자 정보 획득${userID}`);
+            logger.info(`GET / 304 "사용자 정보 획득`);
             res.json(userID);
         }else{
             res.render("home/login");
@@ -28,7 +27,6 @@ const output = {
     
     login : (req, res)=>{
         logger.info(`GET /login 304 "로그인 화면으로 이동"`);
-        
         if(req.session.user){
             res.render("home/main");
         }else{

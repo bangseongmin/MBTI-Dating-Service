@@ -36,7 +36,7 @@ function login() {
        .then((res) => {
            if(res.success){
                if(res.msg == 'true'){
-                    location.href = `/main`;       
+                    location.href = `/`;       
                }else{
                     location.href = `/testPage`;              
                }
