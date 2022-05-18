@@ -19,6 +19,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/main/main.css">
     <link rel="stylesheet" href="/css/main/test.css">
+    <script>
+        let username = username;
+    </script>
 </head>
 <body>
 
@@ -85,8 +88,8 @@
             <div class="user-wrapper">
                 <img src="/rss/img/testProfile.jpg" width="40px" height="40px" alt="">
                 <div>
-                    <h4>John Doe</h4>
-                    <small>Super admin</small>
+                    <h4 id="userId"><%=username%></h4>
+                    <small id="userName">Super admin</small>
                 </div>
             </div>
         </header>
@@ -154,6 +157,7 @@
         </main>
     </div>
     <script src="/js/main/main.js"></script>
+    <script src="/js/useful/getUser.js" charset="utf-8" defer></script>
     <script src="/js/mbti-test/share.js"></script>
 </body>
 </html>

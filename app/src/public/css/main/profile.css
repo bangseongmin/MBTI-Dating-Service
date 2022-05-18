@@ -1,6 +1,4 @@
 .myinfo > img{
-    padding: 5px;
-
     /* border: 1px solid #8390A2;
     background-color:whitesmoke; */
 
@@ -8,4 +6,22 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+main {
+    padding: 0;
+}
+
+.is-profile {
+    color: #e8344e !important;
+    font-weight: 600;
+}
+
+.is-profile:hover{
+    border: 3px solid #e8344e
+}
+
+.wrap {
+    max-width: 1200px;
+    margin: 20px auto 0 auto;
 }

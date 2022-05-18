@@ -1,20 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <title>MBTI-Dating</title>
     <!-- Library -->
-    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <!-- Font Awesome CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- BootStrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 
     <!-- Style -->
     <link rel="stylesheet" href="/css/main/main.css">
     <link rel="stylesheet" href="/css/main/profile.css">
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
 <body>
     <!-- Menu toggle -->
     <input type="checkbox" id="nav-toggle">
-    
+
     <!-- sidebar-menu -->
     <div class="sidebar">
         <div class="sidebar-brand">
@@ -24,33 +40,33 @@
             <ul>
                 <li>
                     <a href="/"><span class="las la-home"></span>
-                    <span>Home</span></a>
+                        <span>Home</span></a>
                 </li>
                 <li>
                     <a href="/test"><span class="las la-pen"></span>
-                    <span>MBTI-Test</span></a>
+                        <span>MBTI-Test</span></a>
                 </li>
                 <li>
                     <a href="/interest"><span class="lab la-gratipay"></span>
-                    <span>Interest</span></a>
+                        <span>Interest</span></a>
                 </li>
                 <li>
                     <a href="/chat"><span class="las la-comment-alt"></span>
-                    <span>Chat</span></a>
+                        <span>Chat</span></a>
                 </li>
                 <li>
                     <a href="/profile" class="active"><span class="las la-user"></span>
-                    <span>Profile</span></a>
+                        <span>Profile</span></a>
                 </li>
 
                 <li>
                     <a href="/logout"><span class="las la-sign-out-alt"></span>
-                    <span>Logout</span></a>
+                        <span>Logout</span></a>
                 </li>
             </ul>
         </div>
     </div>
-    
+
     <!-- main-content -->
     <div class="main-content">
         <!-- header part -->
@@ -76,25 +92,175 @@
             <div class="user-wrapper">
                 <img src="/rss/img/testProfile.jpg" width="40px" height="40px" alt="">
                 <div>
-                    <h4>admin</h4>
-                    <small>홍길동</small>
+                    <h4 id="userId">
+                        <%=username%>
+                    </h4>
+                    <small id="userName">
+                        <%=status%>
+                    </small>
                 </div>
             </div>
         </header>
 
         <!-- main part -->
         <main>
-            
-            <div class="myinfo">
-                <img src="/rss/img/test.png">
-                <!-- <h4>Account : admin</h4>
-                <h4>Name : 홍길동</h4>
-                <h4>MBTI : INTP</h4>
-                <h4>참여 테스트 : 1</h4> -->
-            </div>
+            <section class="hero is-white">
+                <div class="hero-body" style="padding-bottom:1rem;margin:auto;min-width: 400px">
+                    <article class="media">
+                        <figure class="media-left" style="align-self: center">
+                            <a class="image is-96x96" href="#">
+                                <img class="is-rounded" src="/rss/img/testProfile.jpg">
+                            </a>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <strong id="profile-name">유저 이름</strong> @<strong id="profile-type">유저 MBTI 타입</strong>
+                                    <br>
+                                    미 작성상태
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                    <% if(status) { %>
+                        <nav id="btns-me" class="level is-mobile" style="margin-top:2rem">
+                            <a class="button level-item has-text-centered is-profile" aria-label="edit"
+                                onclick='$("#modal-edit").addClass("is-active")'>
+                                프로필 수정&nbsp;&nbsp;&nbsp;<span class="icon is-small"><i class="fa fa-pencil"
+                                        aria-hidden="true"></i></span>
+                            </a>
+
+                            <a class="button level-item has-text-centered is-profile is-outlined" aria-label="logout"
+                                onclick="location.href='/logout'">
+                                로그아웃&nbsp;&nbsp;&nbsp;<span class="icon is-small"><i class="fa fa-sign-out"
+                                        aria-hidden="true"></i></span>
+                            </a>
+                        </nav>
+                        <!-- 프로필 수정 모달 로그 -->
+                        <div class="modal" id="modal-edit">
+                            <div class="modal-background" onclick='$("#modal-edit").removeClass("is-active")'></div>
+                            <div class="modal-content">
+                                <div class="box">
+                                    <article class="media">
+                                        <div class="media-content">
+                                            <div class="field">
+                                                <label class="label" for="input-name">이름</label>
+
+                                                <p class="control">
+
+                                                    <input id="input-name" class="input" placeholder="홍길동" value="<%=username%>">
+                                                </p>
+                                            </div>
+                                            <div class="field">
+                                                <label class="label" for="input-pic">프로필 사진</label>
+
+                                                <div class="control is-expanded">
+                                                    <div class="file has-name">
+                                                        <label class="file-label" style="width:100%">
+                                                            <input id="input-pic" class="file-input" type="file"
+                                                                name="resume">
+                                                            <span class="file-cta"><span class="file-icon"><i class="fa fa-upload"></i></span>
+                                                                <span class="file-label">파일 선택</span>
+                                                            </span>
+                                                            <span id="file-name" class="file-name" style="width:100%;max-width:100%"><%=username%></span>
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <label class="label" for="textarea-about">나는 누구?</label>
+
+                                                <p class="control">
+
+                                                    <textarea id="textarea-about" class="textarea"
+                                                        placeholder="자기소개하기"><%=username%></textarea>
+                                                </p>
+                                            </div>
+                                            <nav class="level is-mobile">
+                                                <div class="level-left">
+
+                                                </div>
+                                                <div class="level-right">
+                                                    <div class="level-item">
+                                                        <a class="button is-sparta" onclick="update_profile()">업데이트</a>
+                                                    </div>
+                                                    <div class="level-item">
+                                                        <a class="button is-sparta is-outlined"
+                                                            onclick='$("#modal-edit").removeClass("is-active")'>취소</a>
+                                                    </div>
+                                                </div>
+                                            </nav>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                            <button class="modal-close is-large" aria-label="close"
+                                onclick='$("#modal-edit").removeClass("is-active")'></button>
+                        </div>
+                        <% } %>
+                </div>
+            </section>
+            <section class="wrap">
+                <div class="row row-cols-1 row-cols-md-4 g-4">
+                    <div class="col">
+                        <div class="card">
+                            <img src="/rss/img/profile_placeholder.png" class="card-img-top" alt="...">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="/rss/img/profile_placeholder.png" class="card-img-top" alt="...">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="/rss/img/profile_placeholder.png" class="card-img-top" alt="...">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="/rss/img/profile_placeholder.png" class="card-img-top" alt="...">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="/rss/img/profile_placeholder.png" class="card-img-top" alt="...">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="/rss/img/profile_placeholder.png" class="card-img-top" alt="...">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="/rss/img/profile_placeholder.png" class="card-img-top" alt="...">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="/rss/img/profile_placeholder.png" class="card-img-top" alt="...">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="/rss/img/profile_placeholder.png" class="card-img-top" alt="...">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="/rss/img/profile_placeholder.png" class="card-img-top" alt="...">
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
     <script src="/js/main/main.js"></script>
+    <script src="/js/useful/getUser.js" charset="utf-8" defer></script>
     <script src="/js/mbti-test/share.js"></script>
+    <script src="/js/main/profile.js"></script>
 </body>
+
 </html>
