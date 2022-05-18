@@ -35,6 +35,7 @@ function login() {
        다 읽은 body의 텍스트를 Promise 형태로 반환한다. */
        .then((res) => {
            if(res.success){
+               
                if(res.msg == 'true'){
                     location.href = `/`;       
                }else{

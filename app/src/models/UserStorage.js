@@ -82,7 +82,7 @@ class UserStorage {
     static async saveMBTIInfo(userInfo){
         // SELECT * FROM userMBTI WHERE user_id = "test";
         return new Promise((resolve, reject) => {
-            let query = "SELECT * FROM userMBTI WHERE user_id = ?;";
+            let query = "UPDATE users SET  is_test = true WHERE id = ?;";
             db.query(query, [userInfo.id], (err, data)=> {
                 if(err) console.log("에러"+err);
                 else{
@@ -91,14 +91,14 @@ class UserStorage {
                         query = "INSERT INTO userMBTI(user_id, user_type, user_Otype) VALUES(?, ?, ?);";
                         db.query(query, [userInfo.id, userInfo.userType, userInfo.userOType], (err)=> {
                             if(err) reject(`${err}`);
-                            else resolve({ success : true });
+                            else resolve({ success : true, msg : "저장되셨습니다."});
                         });
                     }else{
                         // update userMBTI SET user_type = 2 where user_id = "test";
                         query = "UPDATE userMBTI SET user_type = ?, user_Otype = ? WHERE user_id = ?;";
                         db.query(query, [userInfo.userType, userInfo.userOType, userInfo.id], (err, data)=> {
                             if(err) reject(`${err}`);
-                            else resolve({ success : true });
+                            else resolve({ success : true , msg : "업데이트 되셨습니다."});
                         });
                     }
                 }
@@ -108,8 +108,8 @@ class UserStorage {
 
     static async searchUserInfo(id){
         return new Promise((resolve, reject) => {
-            const query = "SELECT * FROM users WHERE id = ?;";
-            db.query(query, [id], (err, data)=> {
+            const query = "SELECT users.name, userMBTI.user_type FROM users, userMBTI WHERE users.id = ? and userMBTI.user_id = ?";
+            db.query(query, [id, id], (err, data)=> {
                 if(err) reject(`${err}`);
                 else resolve(data[0]);
             });

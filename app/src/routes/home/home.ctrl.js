@@ -3,14 +3,14 @@
 const User = require('../../models/User');
 const UserMBTI = require('../../models/UserMBTI');
 const logger = require('../../config/logger');
+const db = require("../../config/dbcon");
 
 const output = {
     home : (req, res)=>{
         if(req.session.user){
             logger.info(`GET / 304 "메인 화면으로 이동"`);
-
             let userID = req.session.user.id;
-            return res.render("home/main", {data: userID});
+            return res.render("home/main", {username: userID});
         }else{
             res.render("home/login");
         }
@@ -70,7 +70,8 @@ const output = {
     chat: (req, res) =>{
         if(req.session.user){
         logger.info(`GET /main/chat 304 "채팅 페이지으로 이동"`);
-        res.render("home/main-page/chat");
+        let userID = req.session.user.id;
+        res.render("home/main-page/chat", {username: userID});
         }else{
             res.render("home/login");
         }
@@ -79,7 +80,8 @@ const output = {
     interest: (req, res) =>{
         if(req.session.user){
             logger.info(`GET /main/interest 304 "메시지 및 알림 페이지으로 이동"`);
-            res.render("home/main-page/interest");
+                
+            res.render("home/main-page/interest", {username: userID});
         }else{
             res.render("home/login");
         }
@@ -88,7 +90,8 @@ const output = {
     test: (req, res) =>{
         if(req.session.user){
             logger.info(`GET /main/test 304 "다양한 테스트 페이지로 이동"`);
-            res.render("home/main-page/test");
+            let userID = req.session.user.id;
+            res.render("home/main-page/test", {username: userID});
         }else{
             res.render("home/login");
         }
@@ -96,8 +99,12 @@ const output = {
 
     profile: (req, res) =>{
         if(req.session.user){
-            logger.info(`GET /main/profile 304 "프로필 페이지로 이동"`);
-            res.render("home/main-page/profile");
+            let userID = req.session.user.id;
+            let username = req.params.username;
+
+            logger.info(`GET /main/profile 304 "${username} 프로필 페이지로 이동"`);
+            let status = userID == username ? true: false;
+            res.render("home/main-page/profile", {username: userID, status: status});
         }else{
             res.render("home/login");
         }
@@ -127,6 +134,7 @@ const output = {
 const process = {
     login: async(req, res) => {
         
+        console.log("login: " + JSON.stringify(req.body));
         const user = new User(req.body);
         const response = await user.login();
 
@@ -208,8 +216,6 @@ const process = {
         return res.status(url.status).json(response);
     },
     saveMBTI: async(req, res) => {
-
-        
         const user = new User(req.body);
         const response = await user.saveMBTIInfo();
 

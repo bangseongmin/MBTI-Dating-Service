@@ -43,7 +43,8 @@ function setMyType(id, userType, idx){
     }).then((res) => res.json())
     .then((res)=> {
         if (res.success) {
-            location.href = '/main';
+            console.log(res.msg);
+            location.href = '/';
         }else{
             alert("실패하셨습니다.");
             return;

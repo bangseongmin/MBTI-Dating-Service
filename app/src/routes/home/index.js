@@ -18,7 +18,7 @@ router.get('/selectOne', ctrl.output.selectOne);
 router.get('/chat', ctrl.output.chat);
 router.get('/interest', ctrl.output.interest);
 router.get('/test', ctrl.output.test);
-router.get('/profile', ctrl.output.profile);
+router.get('/profile/:username', ctrl.output.profile);
 
 /* Result Page */
 router.get('/testPage/:n', ctrl.result.result);
