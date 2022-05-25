@@ -1,5 +1,6 @@
 "use strict";
 
+const { cli } = require('winston/lib/winston/config');
 const UserStorage = require('./UserStorage');
 
 /*
@@ -42,7 +43,6 @@ class User {
     async register() {
         const client = this.body;
         try {
-            console.log(this.body);
             const response = await UserStorage.save(client);
 
             return response;
@@ -55,7 +55,6 @@ class User {
     async findUsername(){
         const client = this.body;
         try{
-            console.log(this.body);
             const user = await UserStorage.getFindInfo(client.phone);
             if (user) {
                 const msg = user.id;
@@ -71,7 +70,6 @@ class User {
     async findPassword(){
         const client = this.body;
         try{
-            console.log(this.body);
             const user = await UserStorage.getFindInfo2(client.id, client.phone);
             if (user) {
                 return { success: true};
@@ -85,7 +83,6 @@ class User {
     async updatePassword(){
         const client = this.body;
         try{
-            console.log(this.body);
             const response = await UserStorage.updatePassword(client.id, client.pw);
             return { success: true};;
         } catch (err) {
@@ -96,7 +93,6 @@ class User {
     async saveTestResult(){
         const client = this.body;
         try{
-            console.log(client);
             const response = await UserStorage.saveTestResult(client.id);
             return { success: true};;
         }catch (err) {
@@ -107,7 +103,6 @@ class User {
     async saveMBTIInfo(){
         const client = this.body;
         try{
-            console.log(this.body);
             const response = await UserStorage.saveMBTIInfo(client);
             return { success: true};
         }catch(err){
@@ -118,7 +113,6 @@ class User {
     async searchUserInfo(){
         const client = this.body;
         try{
-            console.log(this.body);
             const user = await UserStorage.searchUserInfo(client.id);
             if (user) {
                 const msg = user;
@@ -127,6 +121,45 @@ class User {
             }
         }catch(err){
             return { success: false, err };
+        }
+    }
+
+    async searchUserImage(){
+        const client = this.body;
+        try{
+            const user = await UserStorage.searchUserImage(client.id);
+            if(user){
+                console.log(user);
+                return {success:user.success, list:user.list, result : user.result}
+            }
+        }catch(err){
+            return { success: user.success , err };
+        }
+    }
+
+    async updateProfile(){
+        const client = this.body;
+        try{
+            const user = await UserStorage.updateProfile(client);
+            if(user){
+                const msg = user;
+                return { success: true, msg: msg};
+            }
+        }catch(err){
+            return { success: user.success , err };
+        }
+    }
+
+    async changeImage(){
+        const client = this.body;
+        try{
+            const user = await UserStorage.changeImage(client);
+            if(user){
+                const msg = user;
+                return { success: true, msg: msg};
+            }
+        }catch(err){
+            return { success: false , err };
         }
     }
 }

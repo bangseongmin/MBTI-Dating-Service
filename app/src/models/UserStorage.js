@@ -1,6 +1,7 @@
 "use strict";
 
 const db = require("../config/dbcon");
+const { data } = require("../config/logger");
 
 
 /*
@@ -24,8 +25,8 @@ class UserStorage {
     // 회원가입
     static async save(userInfo) {
         return new Promise((resolve, reject) => {
-            const query = "INSERT INTO users(id, name, pw, phone, address, gender) VALUES(?, ?, ?, ?, ?, ?);";
-            db.query(query, [userInfo.id, userInfo.name, userInfo.pw, userInfo.phone, userInfo.address, userInfo.gender], (err)=> {
+            const query = "INSERT INTO users(id, name, pw, phone, address, gender, age) VALUES(?, ?, ?, ?, ?, ?, ?);";
+            db.query(query, [userInfo.id, userInfo.name, userInfo.pw, userInfo.phone, userInfo.address, userInfo.gender, userInfo.age], (err)=> {
                 if(err) reject(`${err}`);
                 else resolve({ success : true });
             });
@@ -80,40 +81,95 @@ class UserStorage {
 
     // MBTI 정보 저장
     static async saveMBTIInfo(userInfo){
-        // SELECT * FROM userMBTI WHERE user_id = "test";
+        // update users SET is_test = false and imagetitle = "1234" where id = "admin";
         return new Promise((resolve, reject) => {
-            let query = "UPDATE users SET  is_test = true WHERE id = ?;";
-            db.query(query, [userInfo.id], (err, data)=> {
-                if(err) console.log("에러"+err);
-                else{
-                    if(typeof data[0] === 'undefined'){
-                        // INSERT INTO userMBTI(user_id, user_type, user_Otype) values("admin", 1,1);
-                        query = "INSERT INTO userMBTI(user_id, user_type, user_Otype) VALUES(?, ?, ?);";
-                        db.query(query, [userInfo.id, userInfo.userType, userInfo.userOType], (err)=> {
-                            if(err) reject(`${err}`);
-                            else resolve({ success : true, msg : "저장되셨습니다."});
+            let query = "Select count(idx) AS count from userMBTI where user_type=?"
+            db.query(query, [userInfo.userType], (err, data)=>{
+
+                let count = JSON.stringify(data[0].count);
+
+                let url = `${userInfo.userType}/${parseInt(count+1)}.png`;
+                console.log(count);
+                console.log(url);
+
+                query = "Insert INTO images(id, image) values(?, ?);"
+                db.query(query, [userInfo.id, url], (err, data)=>{
+                    if(err) console.log("이미지 저장 중"+err);
+                    else {
+                        console.log("이미지 저장 성공" + data);
+                        query = "UPDATE users SET is_test = true, image = ? WHERE id = ?;";
+                        db.query(query, [url, userInfo.id], (err, data)=> {
+                            if(err) console.log("에러"+err);
+                            else{
+                                    // INSERT INTO userMBTI(user_id, user_type, user_Otype) values("admin", 1,1);
+                                    query = "INSERT INTO userMBTI(user_id, user_type, user_Otype) VALUES(?, ?, ?);";
+                                    db.query(query, [userInfo.id, userInfo.userType, userInfo.userOType], (err)=> {
+                                        if(err) reject(`${err}`);
+                                        else resolve({ success : true, msg : "저장되셨습니다."});
+                                    });
+
+                            }
                         });
-                    }else{
-                        // update userMBTI SET user_type = 2 where user_id = "test";
-                        query = "UPDATE userMBTI SET user_type = ?, user_Otype = ? WHERE user_id = ?;";
-                        db.query(query, [userInfo.userType, userInfo.userOType, userInfo.id], (err, data)=> {
-                            if(err) reject(`${err}`);
-                            else resolve({ success : true , msg : "업데이트 되셨습니다."});
-                        });
+
                     }
-                }
-            });
+                })
+            })
         });
     }
 
     static async searchUserInfo(id){
         return new Promise((resolve, reject) => {
-            const query = "SELECT users.name, userMBTI.user_type FROM users, userMBTI WHERE users.id = ? and userMBTI.user_id = ?";
+            const query = "SELECT users.name, users.image, userMBTI.user_type FROM users, userMBTI WHERE users.id = ? and userMBTI.user_id = ?";
             db.query(query, [id, id], (err, data)=> {
                 if(err) reject(`${err}`);
                 else resolve(data[0]);
             });
         });
+    }
+
+    static async searchUserImage(id){
+        // select imagetitle from images where id = "admin";
+        return new Promise((resolve, reject) => {
+            let query = "select image from users where id = ?";
+            db.query(query, [id], (err, result) => {
+                if(err) reject(`${err}`); 
+                else{
+                    console.log("결과양ㅁ!!"+JSON.stringify(result));
+                    query = "SELECT * from images where id = ?";
+                    db.query(query, [id], (err, data)=>{
+                        if(err) reject(`${err}`);
+                        else resolve({ success : true, result: result, list : data});
+                    })
+                }
+            })
+        })
+    }
+
+    static async updateProfile(userInfo){
+        // update profiles SET content = '11121' WHERE id = 'test1';
+        return new Promise((resolve, reject) => {
+            let query = "update profiles SET content = ? WHERE id = ?";
+            db.query(query, [userInfo.content, userInfo.id], (err, data)=>{
+                if(err) reject(`${err}`);
+                else{
+                    query = "update users SET name = ? where id = ?";
+                    db.query(query, [userInfo.name, userInfo.id], (err, data)=>{
+                        if(err) reject(`${err}`);
+                        else resolve({ success : true});
+                    })
+                }
+            })
+        })
+    }
+
+    static async changeImage(userInfo){
+        return new Promise((resolve, reject) => {
+            let query = "update users SET image = ? WHERE id = ?";
+            db.query(query, [userInfo.image, userInfo.id], (err, data)=>{
+                if(err) reject(`${err}`);
+                else resolve({ success : true});
+            })
+        })
     }
 }
 

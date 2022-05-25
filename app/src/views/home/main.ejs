@@ -24,10 +24,7 @@
     <!-- Style -->
     <link rel="stylesheet" href="/css/main/main.css">
     <link rel="stylesheet" href="/css/main/card.css">
-    <script>
-        let id = '<%=username%>'
-        console.log("id:"+id);
-    </script>
+
 </head>
 <body>
     <!-- Menu toggle -->
@@ -86,12 +83,12 @@
             <!-- Search -->
             <div class="search-wrapper">
                 <span class="las la-search"></span>
-                <input type="search" placeholder="Search here">
+                <input id="search" type="search" placeholder="Search here" onkeypress="javascript:if(event.keyCode==13){searchProfile();}">
             </div>
 
             <!-- My Info -->
             <div class="user-wrapper" onclick="moveProfile('<%=username%>')">
-                <img src="/rss/img/testProfile.jpg" width="40px" height="40px" alt="">
+                <img id="myimage" src="" width="40px" height="40px" alt="">
                 <div>
                     <h4 id="userId"><%=username%></h4>
                     <small id="userName">Super admin</small>
@@ -147,83 +144,7 @@
             
             <div class="select">
                 <!-- 우측 콘텐츠 -->
-                <div class="content">
-                    <div class="card">
-                        <div class="user">
-                            <img class="user" src="/rss/img/image-11.png" />
-                            <div class="profile">
-                                <div class="name">김태희</div>
-                                <div class="local">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>ISFJ</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="buttons">
-                        <div class="no">
-                            <i class="fas fa-times"></i>
-                        </div>
-                        <div class="star">
-                            <i class="fas fa-star fa"></i>
-                        </div>
-                        <div class="heart">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="content">
-                    <div class="card">
-                        <div class="user">
-                            <img class="user" src="/rss/img/image-11.png" />
-                            <div class="profile">
-                                <div class="name">한지혜</div>
-                                <div class="local">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>ISFJ</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="buttons">
-                        <div class="no">
-                            <i class="fas fa-times"></i>
-                        </div>
-                        <div class="star">
-                            <i class="fas fa-star fa"></i>
-                        </div>
-                        <div class="heart">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="content">
-                    <div class="card">
-                        <div class="user">
-                            <img class="user" src="/rss/img/image-11.png" />
-                            <div class="profile">
-                                <div class="name">윤아</div>
-                                <div class="local">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>ISFJ</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="buttons">
-                        <div class="no">
-                            <i class="fas fa-times"></i>
-                        </div>
-                        <div class="star">
-                            <i class="fas fa-star fa"></i>
-                        </div>
-                        <div class="heart">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                    </div>
-                </div>
             </div>
         </main>
     </div>

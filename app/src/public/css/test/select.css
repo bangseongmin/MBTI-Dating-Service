@@ -28,6 +28,10 @@ html, body{
     display: flex;
 }
 
+.card{
+    width: 280px;
+}
+
 .slider .card{
     background: fff;
     flex: 1;
@@ -36,14 +40,11 @@ html, body{
 
 .slider .card .img img{
     width: 250px;
-    height: 200px;
     margin: 20px auto;
 }
 
 .slider .card .content{
     padding: 10px 20px;
-    height: 350px;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -56,12 +57,12 @@ html, body{
     text-align: center;
 }
 
-.card .content .sub-title{
+/* .card .content .sub-title{
     font-size: 18px;
     font-weight: 600;
     color: #e74c37;
     line-height: 20px;
-}
+} */
 
 .card .content p{
     text-align: justify;

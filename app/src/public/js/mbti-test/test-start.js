@@ -2,8 +2,8 @@ const main = document.querySelector('#main');
 const qna = document.querySelector('#qna');
 const result = document.querySelector('#result');
 
-const endPoint = 12;                                        // 질문 개수
-const select = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];        // 설문조사결과
+const endPoint = qnaList.length;                                        // 질문 개수
+const select = [0, 0, 0, 0, 0, 0, 0, 0];        // 설문조사결과
 
 
 // Test 시작
@@ -104,8 +104,33 @@ function goResult(){
 
 // 테스트 결과 연산
 function calResult(){
-    // console.log(select);
-    var result = select.indexOf(Math.max(...select));
+    
+    // var result = select.indexOf(Math.max(...select));
+    let MBTI = "";
+    MBTI += select[0] > select[1] ? "I" : "E";
+    MBTI += select[2] > select[3] ? "S" : "N";
+    MBTI += select[4] > select[5] ? "T" : "F";
+    MBTI += select[6] > select[7] ? "J" : "P";
+
+    let result = -1;
+    switch(MBTI){
+        case "INTJ": result = 0; break;
+        case "INTP": result = 1; break;
+        case "ENTJ": result = 2; break;
+        case "ENTP": result = 3; break;
+        case "INFJ": result = 4; break;
+        case "INFP": result = 5; break;
+        case "ENFJ": result = 6; break;
+        case "ENFP": result = 7; break;
+        case "ISTJ": result = 8; break;
+        case "ISFJ": result = 9; break;
+        case "ESTJ": result = 10; break;
+        case "ESFJ": result = 11; break;
+        case "ISTP": result = 12; break;
+        case "ISFP": result = 13; break;
+        case "ESTP": result = 14; break;
+        case "ESFP": result = 15; break;
+    }
 
     return result;
 }
@@ -118,8 +143,8 @@ function setResult(){
 
     var resultImg = document.createElement('img');
     const imgDiv = document.querySelector('#resultImg');
-    
-    var imgURL = '/rss/img/image-'+point+'.png';
+    // image URL도 변경해야함.
+    var imgURL = '/rss/img/'+point+'/1.png';
     resultImg.src = imgURL;
     resultImg.alt = point;
     resultImg.classList.add('img-fluid');

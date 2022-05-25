@@ -19,9 +19,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/main/main.css">
     <link rel="stylesheet" href="/css/main/test.css">
-    <script>
-        let username = username;
-    </script>
 </head>
 <body>
 
@@ -51,7 +48,7 @@
                     <span>Chat</span></a>
                 </li>
                 <li>
-                    <a href="/profile"><span class="las la-user"></span>
+                    <a href="/profile/<%=username%>"><span class="las la-user"></span>
                     <span>Profile</span></a>
                 </li>
 
@@ -86,7 +83,7 @@
 
             <!-- My Info -->
             <div class="user-wrapper">
-                <img src="/rss/img/testProfile.jpg" width="40px" height="40px" alt="">
+                <img id="myimage" src="" width="40px" height="40px" alt="">
                 <div>
                     <h4 id="userId"><%=username%></h4>
                     <small id="userName">Super admin</small>
@@ -100,7 +97,7 @@
                 <h1>금주의 <span id="HOT">HOT</span>한 테스트</h1>
             </div>
 
-            <div class="rank">
+            <!-- <div class="rank">
                 <div class="wrap">
                     <div id="cards-box" class="row row-cols-1 row-cols-md-4 g-4">
                         <div class="col">
@@ -153,7 +150,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </main>
     </div>
     <script src="/js/main/main.js"></script>
