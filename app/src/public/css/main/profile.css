@@ -25,3 +25,41 @@ main {
     max-width: 1200px;
     margin: 20px auto 0 auto;
 }
+
+.col > .card > img {
+    height: 250px;
+}
+
+.option {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.option > a > span {
+    font-size: 2rem;
+    color: #e8344e;
+}
+
+.card-box .option {
+    visibility: hidden;
+}
+
+.card-box:hover > .option {
+    visibility: visible;
+}
+
+.modal-content{
+    width: auto;
+}
+
+.box{
+    width: 450px;
+    display: flex;
+    margin: 0 auto;
+}
+
+.box input{
+    width: 400px;
+}

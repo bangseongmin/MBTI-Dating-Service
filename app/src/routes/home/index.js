@@ -19,6 +19,7 @@ router.get('/chat', ctrl.output.chat);
 router.get('/interest', ctrl.output.interest);
 router.get('/test', ctrl.output.test);
 router.get('/profile/:username', ctrl.output.profile);
+router.get('/readInfo', ctrl.output.readInfo);
 
 /* Result Page */
 router.get('/testPage/:n', ctrl.result.result);
@@ -35,8 +36,10 @@ router.post('/updatePassword', ctrl.process.updatePassword);
 router.post('/saveMBTI', ctrl.process.saveMBTI);
 router.post('/searchInfo', ctrl.process.searchInfo);
 router.post('/searchUserMBTI', ctrl.process.searchUserMBTI);
-
+router.post('/profile', ctrl.process.profile);
 
 router.post('/testPage', ctrl.process.saveTestResult);
 
+router.put('/profile', ctrl.update.profile);
+router.put('/changeImage', ctrl.update.changeImage);
 module.exports = router;

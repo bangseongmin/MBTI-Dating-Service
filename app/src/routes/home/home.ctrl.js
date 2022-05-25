@@ -4,6 +4,7 @@ const User = require('../../models/User');
 const UserMBTI = require('../../models/UserMBTI');
 const logger = require('../../config/logger');
 const db = require("../../config/dbcon");
+const e = require('express');
 
 const output = {
     home : (req, res)=>{
@@ -80,7 +81,7 @@ const output = {
     interest: (req, res) =>{
         if(req.session.user){
             logger.info(`GET /main/interest 304 "메시지 및 알림 페이지으로 이동"`);
-                
+            let userID = req.session.user.id;
             res.render("home/main-page/interest", {username: userID});
         }else{
             res.render("home/login");
@@ -99,12 +100,23 @@ const output = {
 
     profile: (req, res) =>{
         if(req.session.user){
-            let userID = req.session.user.id;
-            let username = req.params.username;
+            let userID = req.session.user.id;       // 접속자
+            let username = req.params.username;     // 검색대상
 
+            // DB에서 데이터를 가져와야함
             logger.info(`GET /main/profile 304 "${username} 프로필 페이지로 이동"`);
             let status = userID == username ? true: false;
-            res.render("home/main-page/profile", {username: userID, status: status});
+            
+            let query = "Select name, image from users where id = ?;";
+            db.query(query, [username], (err, data) => {
+                if(err) console.error(err);
+                else{
+                    let name = JSON.stringify(data[0].name);
+                    let image = JSON.stringify(data[0].image);
+
+                    res.render("home/main-page/profile", {username: userID, search:name, status: status, name:name, img: image});
+                }
+            })
         }else{
             res.render("home/login");
         }
@@ -128,16 +140,28 @@ const output = {
             console.log('로그인이 되어 있지 않습니다.');
             res.render("home/login");
         }
+    },
+
+    readInfo: async(req, res) =>{
+        logger.info(`GET /readInfo 200 "프로필 페이지 정보 로딩"`);
+        if(req.session.user){
+            let id = req.param('id');     // 검색대상
+            let query = "Select content from profiles where id = ?;";
+            db.query(query, [id], (err, data)=>{
+                if(err) console.log(err);
+                else{
+                    res.send(data);
+                }
+            })
+        }
     }
 };
 
 const process = {
     login: async(req, res) => {
-        
-        console.log("login: " + JSON.stringify(req.body));
         const user = new User(req.body);
         const response = await user.login();
-
+        
         if(req.session.user){
             console.log('이미 로그인 되어 있음');
             return res.status(300).json(response);
@@ -216,6 +240,7 @@ const process = {
         return res.status(url.status).json(response);
     },
     saveMBTI: async(req, res) => {
+
         const user = new User(req.body);
         const response = await user.saveMBTIInfo();
 
@@ -258,12 +283,26 @@ const process = {
         return res.status(url.status).json(response);
     },
     saveTestResult: async(req, res) => {                    
-        const user = new User(req.body.id);
+        const user = new User(req.body);
         const response = await user.saveTestResult();
 
         const url = {
             method: "/POST",
             path: "/testPage",
+            status: response.err ? 409 : 200,
+        }
+
+        log(response, url);
+
+        return res.status(url.status).json(response);
+    },
+    profile: async(req, res) => {
+        const user = new User(req.body);
+        const response = await user.searchUserImage();
+
+        const url = {
+            method: "/POST",
+            path: "/profile",
             status: response.err ? 409 : 200,
         }
 
@@ -301,6 +340,36 @@ const image = {
     }
 }
 
+const update = {
+    profile : (req, res) => {
+        const user = new User(req.body);
+        const response = user.updateProfile();
+
+        const url = {
+            method: "/PUT",
+            path: "/profile",
+            status: response.err ? 409 : 200,
+        }
+
+        log(response, url);
+
+        return res.status(url.status).json(response);
+    },
+    changeImage: (req, res) => {
+        const user = new User(req.body);
+        const response = user.changeImage();
+
+        const url = {
+            method: "/PUT",
+            path: "/changeImage",
+            status: response.err ? 409 : 200,
+        }
+
+        log(response, url);
+
+        return res.status(url.status).json(response);
+    }
+}
 
 
 module.exports = {
@@ -308,6 +377,7 @@ module.exports = {
     process,
     result,
     image,
+    update
 }
 
 const log = (response, url) => {

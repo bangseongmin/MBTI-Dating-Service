@@ -26,7 +26,6 @@
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-
 <body>
     <!-- Menu toggle -->
     <input type="checkbox" id="nav-toggle">
@@ -55,7 +54,7 @@
                         <span>Chat</span></a>
                 </li>
                 <li>
-                    <a href="/profile" class="active"><span class="las la-user"></span>
+                    <a href="/profile/<%=username%>" class="active"><span class="las la-user"></span>
                         <span>Profile</span></a>
                 </li>
 
@@ -90,7 +89,7 @@
 
             <!-- My Info -->
             <div class="user-wrapper">
-                <img src="/rss/img/testProfile.jpg" width="40px" height="40px" alt="">
+                <img id="myimage" src="/rss/img/testProfile.jpg" width="40px" height="40px" alt="">
                 <div>
                     <h4 id="userId">
                         <%=username%>
@@ -109,15 +108,15 @@
                     <article class="media">
                         <figure class="media-left" style="align-self: center">
                             <a class="image is-96x96" href="#">
-                                <img class="is-rounded" src="/rss/img/testProfile.jpg">
+                                <img id="search-object" class="is-rounded" src="/rss/img/profile_placeholder.png">
                             </a>
                         </figure>
                         <div class="media-content">
                             <div class="content">
                                 <p>
-                                    <strong id="profile-name">유저 이름</strong> @<strong id="profile-type">유저 MBTI 타입</strong>
+                                    <strong id="profile-name"><%=search%></strong> @<strong id="profile-id"><%=username%></strong>
                                     <br>
-                                    미 작성상태
+                                    <p id="self-content"></p>
                                 </p>
                             </div>
                         </div>
@@ -147,34 +146,13 @@
                                                 <label class="label" for="input-name">이름</label>
 
                                                 <p class="control">
-
                                                     <input id="input-name" class="input" placeholder="홍길동" value="<%=username%>">
                                                 </p>
                                             </div>
                                             <div class="field">
-                                                <label class="label" for="input-pic">프로필 사진</label>
-
-                                                <div class="control is-expanded">
-                                                    <div class="file has-name">
-                                                        <label class="file-label" style="width:100%">
-                                                            <input id="input-pic" class="file-input" type="file"
-                                                                name="resume">
-                                                            <span class="file-cta"><span class="file-icon"><i class="fa fa-upload"></i></span>
-                                                                <span class="file-label">파일 선택</span>
-                                                            </span>
-                                                            <span id="file-name" class="file-name" style="width:100%;max-width:100%"><%=username%></span>
-                                                        </label>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="field">
-                                                <label class="label" for="textarea-about">나는 누구?</label>
-
+                                                <label class="label" for="textarea-about">간단한 자기소개</label>
                                                 <p class="control">
-
-                                                    <textarea id="textarea-about" class="textarea"
-                                                        placeholder="자기소개하기"><%=username%></textarea>
+                                                    <textarea id="textarea-about" class="textarea" placeholder="자기소개하기"></textarea>
                                                 </p>
                                             </div>
                                             <nav class="level is-mobile">
@@ -187,7 +165,7 @@
                                                     </div>
                                                     <div class="level-item">
                                                         <a class="button is-sparta is-outlined"
-                                                            onclick='$("#modal-edit").removeClass("is-active")'>취소</a>
+                                                            onclick='closeBox()'>취소</a>
                                                     </div>
                                                 </div>
                                             </nav>
@@ -202,37 +180,7 @@
                 </div>
             </section>
             <section class="wrap">
-                <div class="row row-cols-1 row-cols-md-4 g-4">
-                    <div class="col">
-                        <div class="card">
-                            <img src="/rss/img/profile_placeholder.png" class="card-img-top" alt="...">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <img src="/rss/img/profile_placeholder.png" class="card-img-top" alt="...">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <img src="/rss/img/profile_placeholder.png" class="card-img-top" alt="...">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <img src="/rss/img/profile_placeholder.png" class="card-img-top" alt="...">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <img src="/rss/img/profile_placeholder.png" class="card-img-top" alt="...">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <img src="/rss/img/profile_placeholder.png" class="card-img-top" alt="...">
-                        </div>
-                    </div>
+                <div class="row row-cols-1 row-cols-md-4 g-4" id="img-box">
                     <div class="col">
                         <div class="card">
                             <img src="/rss/img/profile_placeholder.png" class="card-img-top" alt="...">

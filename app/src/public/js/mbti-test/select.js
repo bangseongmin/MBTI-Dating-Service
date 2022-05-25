@@ -2,11 +2,9 @@ async function select(idx){
     let result = get_query();
     let userType = result["type"];
     let id = await getUser();
-    console.log(id);
     let temp = await passTEST(id);
 
-    temp = await setMyType(id,userType, idx);
-    console.log('last : '+temp);
+    temp = await setMyType(id, userType, idx);
 }
 
 
@@ -33,6 +31,7 @@ function setMyType(id, userType, idx){
         userType:userType,
         userOType:idx
     }
+    console.log(req);
     fetch("/saveMBTI", {
         method:"POST",
         headers:{
@@ -42,8 +41,8 @@ function setMyType(id, userType, idx){
         body: JSON.stringify(req),
     }).then((res) => res.json())
     .then((res)=> {
+
         if (res.success) {
-            console.log(res.msg);
             location.href = '/';
         }else{
             alert("실패하셨습니다.");
@@ -52,3 +51,4 @@ function setMyType(id, userType, idx){
     })
 
 }
+

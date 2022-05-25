@@ -7,6 +7,7 @@ const confirmPw = document.querySelector('#confirm-pw');
 const phone = document.querySelector('#phone');
 const gender = document.getElementById('gender');
 const address = document.getElementById('addr');
+const age = document.getElementById('age');
 
 const registerBtn = document.querySelector('#registerBtn');
 
@@ -18,6 +19,12 @@ function register() {
     if(!pw.value) return alert("비밀번호를 입력하세요.");
     if (pw.value !== confirmPw.value) return alert("비밀번호가 일치하지 않습니다.");
     
+    let reg = "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+    if(!reg.search(pw.value)){
+        alert("비밀먼호는 8글자 이상 문자와 조합하여 사용해주세요");
+        return;
+    }
+
     // console.log(gender.options[gender.selectedIndex].value);
     // console.log(address.options[address.selectedIndex].value);
 
@@ -28,6 +35,7 @@ function register() {
         phone: phone.value,
         address: address.options[address.selectedIndex].value,
         gender: gender.options[gender.selectedIndex].value,
+        age: age.options[age.selectedIndex].value
     };
 
     // console.log(JSON.stringify(req));
@@ -42,7 +50,7 @@ function register() {
         .then((res) => res.json())     // then은 서버에서 응답한 데이터
         .then((res) => {
             if (res.success) {
-                location.href = "/login";
+                location.href = "/testPage";
             } else {
                 if(res.err) return alert(res.err);
                 alert(res.msg);
