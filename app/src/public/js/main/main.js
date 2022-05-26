@@ -21,7 +21,6 @@ async function setProfile(){
         .then((res) => {
             if (res.success) {
                 $('#userName').text(res.msg['name']);
-                console.log(res)
                 $("#myimage").attr("src", `/rss/img/${res.msg['image']}`);
             } else {
                 if(res.err) return alert(res.err);
@@ -33,26 +32,6 @@ async function setProfile(){
         })
 }
 
-// 1. 아이디로 자신의 MBTI 타입과 상대방 MBTI 타입 찾기
-// 2. 상대방과 나와 MBTI 타입이 일치한 사람들 가져오기(9명)
-// 3. 6시간마다(0, 6, 12, 18)시 마다 변경되도록 설정
-
-function getType(type){
-    switch(type){
-        case 0: return "mouse";
-        case 1: return "cow";
-        case 2: return "tiger";
-        case 3: return "rabbit";
-        case 4: return "dragon";
-        case 5: return "snake";
-        case 6: return "horse";
-        case 7: return "sheep";
-        case 8: return "monkey";
-        case 9: return "chick";
-        case 10: return "dog";
-        case 11: return "pig";
-    }
-}
 
 function moveProfile(username){
     location.href = `/profile/${username}`;

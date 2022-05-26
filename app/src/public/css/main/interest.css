@@ -1,0 +1,68 @@
+body{
+    font-family: 'Jua', sans-serif;
+}
+
+body {
+    margin: 0px;
+}
+
+
+#search-area, #see-area {
+    width: 530px;
+    margin: auto;
+}
+
+.nav {
+    width: 530px;
+    margin: 30px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 50px;
+    border-radius: 15px;
+    border: 1px solid #8390A2;
+    background-color: white;
+}
+
+.nav div {
+    cursor: pointer;
+}
+
+.nav div.active {
+    font-weight: 700;
+    text-decoration-line: underline;
+    text-decoration-color: coral;
+    text-underline-position : under;
+    text-decoration-thickness: 3px;
+}
+
+.none {
+    display: none;
+}
+
+.nav .nav-see{
+    margin-right: 25px;
+}
+
+.container{
+    display: flex;
+	padding: 20px auto;
+	align-items: center;
+	flex-direction: column;
+}
+
+.media-content{
+    display: flex;
+	padding: 20px auto;
+	align-items: center;
+	flex-direction: row;
+}
+
+.card-box .card{
+    margin-bottom: 15px;
+    padding: 10px 5px;
+}
+
+.card {
+    width: 520px;
+}

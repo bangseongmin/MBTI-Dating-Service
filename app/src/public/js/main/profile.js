@@ -19,6 +19,7 @@ function update_profile(){
     .then((res) => res.json())     // then은 서버에서 응답한 데이터
     .then((res) => {
         closeBox();
+        alert('stop');
         window.location.reload();
     })
     .catch((err) => {
@@ -28,7 +29,7 @@ function update_profile(){
 
 function loading_img(){
     $('#img-box').empty();
-    let id = window.location.pathname.split('/')[2];;
+    let id = window.location.pathname.split('/')[2];
     const req = {
         id: id,
     };
@@ -45,8 +46,8 @@ function loading_img(){
         if (res.success) {
             let list = res['list'];
             let title = res['result'][0]['image'];
-            console.log("title : " + title);
 
+            $('#profile-id').text(id);
             $('#search-object').attr("src", `/rss/img/${title}`);
 
 
@@ -57,9 +58,8 @@ function loading_img(){
                                     <div class="card">
                                         <img src="/rss/img/${image}" class="card-img-top">
                                     </div>
-                                    <div class="option">
-                                        <a href="#" onclick="changeImage('${title}');"><span class="las la-edit"></span></a>
-                                        <a href="#" onclick="removeImage('${title}');"><span class="las la-trash"></span></a>
+                                    <div class="option" id="access">
+                                        <a href="#" onclick="changeImage('${image}');"><span class="las la-check"></span></a>                                        
                                     </div>
                                 </div>`;
                 $('#img-box').append(temp_html);
@@ -80,60 +80,43 @@ function loading_img(){
 function changeImage(title){
     let id = $('#profile-id').text();
 
+    let loginUser = $('#userId').text();
+    if(id != loginUser){
+        alert('변경할 수 없습니다.');
+        return;
+    }
+
     const req = {
         id:id,
-        title:title
+        image:title
     }
-   alert(id);
-    // fetch("/changeImage", {
-    //     method: "PUT",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(req),
-    // })
-    // .then((res) => res.json())     // then은 서버에서 응답한 데이터
-    // .then((res) => {
-    //     console.log(res);
-    //     window.location.reload();
-    // })
-    // .catch((err) => {
-    //     console.error(err);
-    // })
+
+    fetch("/changeImage", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
+    })
+    .then((res) => res.json())     // then은 서버에서 응답한 데이터
+    .then((res) => {
+        console.log(res);
+        window.location.reload();
+    })
+    .catch((err) => {
+        console.error(err);
+    })
 }
 
 function removeImage(title){
     alert(title);
-    // let id = $('#userId').text().trim();
-    // const req = {
-    //     id : id,
-    //     title : title
-    // }
-
-    // fetch("/profile", {
-    //     method: "PUT",
-    //     headers: {
-    //         "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(req),
-    // }).then((res) => res.json())     // then은 서버에서 응답한 데이터
-    // .then((res) => {
-    //     if (res.success) {
-    //         alert("수정 완료되었습니다.");
-    //     } else {
-    //         if(res.err) return alert(res.err);
-    //         alert(res.msg);
-    //     }
-    // })
-    // .catch((err) => {
-    //     console.error(err);
-    // })
 }
 
 
 $(document).ready(function(){
     loading_img();
     readInfo();
+    access();
 })
 
 function closeBox(){
@@ -143,8 +126,7 @@ function closeBox(){
 }
 
 function readInfo(){
-    const id = $('#profile-id').text();
-    console.log("출발지점 : " + id);
+    let id = window.location.pathname.split('/')[2];
 
     fetch(`/readInfo?id=${id}`, {
         method: "GET",
@@ -153,10 +135,17 @@ function readInfo(){
     .then((res) => {
         let contetnt = res[0].content;
         $('#self-content').text(contetnt);
-        console.log('성공'+contetnt);
-        
+  
     })
     .catch((err) => {
         console.error(err);
     })
+}
+
+function access(){
+    let id = $('#profile-id').text();
+    let loginUser = $('#userId').text();
+    if(id!=loginUser){
+        $('#access').removeClass("option");
+    }
 }

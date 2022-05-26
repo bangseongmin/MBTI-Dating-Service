@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <link rel="shortcut icon" href="/rss/img/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="/rss/img/favicon.ico">
+    
     <title>MBTI-Dating</title>
     <!-- Library -->
     <link rel="stylesheet"
@@ -26,6 +29,9 @@
     <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script>
+        let status = "<%=status%>";
+    </script>
 <body>
     <!-- Menu toggle -->
     <input type="checkbox" id="nav-toggle">
@@ -84,19 +90,15 @@
             <!-- Search -->
             <div class="search-wrapper">
                 <span class="las la-search"></span>
-                <input type="search" placeholder="Search here">
+                <input id="search" type="search" placeholder="Search here" onkeypress="javascript:if(event.keyCode==13){searchProfile();}">
             </div>
 
             <!-- My Info -->
-            <div class="user-wrapper">
-                <img id="myimage" src="/rss/img/testProfile.jpg" width="40px" height="40px" alt="">
+            <div class="user-wrapper" onclick="moveProfile('<%=username%>')">
+                <img id="myimage" src="" width="40px" height="40px" alt="">
                 <div>
-                    <h4 id="userId">
-                        <%=username%>
-                    </h4>
-                    <small id="userName">
-                        <%=status%>
-                    </small>
+                    <h4 id="userId"><%=username%></h4>
+                    <small id="userName">Super admin</small>
                 </div>
             </div>
         </header>
@@ -176,7 +178,7 @@
                             <button class="modal-close is-large" aria-label="close"
                                 onclick='$("#modal-edit").removeClass("is-active")'></button>
                         </div>
-                        <% } %>
+                    <% } %>
                 </div>
             </section>
             <section class="wrap">

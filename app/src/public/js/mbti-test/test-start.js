@@ -4,7 +4,7 @@ const result = document.querySelector('#result');
 
 const endPoint = qnaList.length;                                        // 질문 개수
 const select = [0, 0, 0, 0, 0, 0, 0, 0];        // 설문조사결과
-
+alert(qnaList.length);
 
 // Test 시작
 function begin(){
@@ -75,7 +75,7 @@ function addAnswer(answerText, qIdx, idx){
             var target = qnaList[qIdx].a[idx].type;
 
             for(let i=0; i< target.length; i++){
-                select[target[i]] += 1;
+                select[target[i]-1] += 1;
             }
 
             for(let i=0; i<children.length; i++){
@@ -104,8 +104,6 @@ function goResult(){
 
 // 테스트 결과 연산
 function calResult(){
-    
-    // var result = select.indexOf(Math.max(...select));
     let MBTI = "";
     MBTI += select[0] > select[1] ? "I" : "E";
     MBTI += select[2] > select[3] ? "S" : "N";

@@ -50,6 +50,9 @@ function register() {
         .then((res) => res.json())     // then은 서버에서 응답한 데이터
         .then((res) => {
             if (res.success) {
+
+                makeNotice(id.value);
+
                 location.href = "/testPage";
             } else {
                 if(res.err) return alert(res.err);
@@ -70,5 +73,22 @@ function setAge(){
     }
 }
 
+function makeNotice(id){
+    let req = {id:id};
+    fetch('/notice/register',{
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(req),
+    }).then((res) => res.json())
+    .then((res)=>{
+        if(res.success){
+            console.log(res.msg);
+        }
+    }).catch((err)=>{
+        console.error(new Error("회원가입 공지메시지 에러 발생"));
+    })
+}
 
 $(document).ready(function() { setAge(); });

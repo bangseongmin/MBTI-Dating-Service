@@ -20,6 +20,11 @@ router.get('/interest', ctrl.output.interest);
 router.get('/test', ctrl.output.test);
 router.get('/profile/:username', ctrl.output.profile);
 router.get('/readInfo', ctrl.output.readInfo);
+router.get('/api/tests',ctrl.output.findtests);
+router.get('/test/:n', ctrl.output.testPage);
+router.get('/notices', ctrl.output.notices);
+router.get('/messages', ctrl.output.messages);
+router.get('/getidealtype', ctrl.output.getidealtype);
 
 /* Result Page */
 router.get('/testPage/:n', ctrl.result.result);
@@ -37,9 +42,13 @@ router.post('/saveMBTI', ctrl.process.saveMBTI);
 router.post('/searchInfo', ctrl.process.searchInfo);
 router.post('/searchUserMBTI', ctrl.process.searchUserMBTI);
 router.post('/profile', ctrl.process.profile);
-
 router.post('/testPage', ctrl.process.saveTestResult);
+router.post('/test', ctrl.process.test);
+router.post('/noticeregister', ctrl.process.noticeregister);
+router.post('/sendMessage', ctrl.process.sendMessage);
 
 router.put('/profile', ctrl.update.profile);
 router.put('/changeImage', ctrl.update.changeImage);
+router.put('/test/like', ctrl.update.testlike);
+
 module.exports = router;

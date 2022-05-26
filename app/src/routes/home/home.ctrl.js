@@ -4,7 +4,6 @@ const User = require('../../models/User');
 const UserMBTI = require('../../models/UserMBTI');
 const logger = require('../../config/logger');
 const db = require("../../config/dbcon");
-const e = require('express');
 
 const output = {
     home : (req, res)=>{
@@ -153,6 +152,99 @@ const output = {
                     res.send(data);
                 }
             })
+        }else{
+            console.log('로그인이 되어 있지 않습니다.');
+            res.render("home/login");
+        }
+    },
+    findtests: async(req, res) =>{
+        logger.info(`GET /api/tests 200 "MBTI 테스트 페이지 정보 전달"`);
+        if(req.session.user){
+            let userID = req.session.user.id;       // 접속자
+            let query = "Select * from test order by likecount DESC";
+            db.query(query, [], (err, result) => {
+                if(err) console.log(err);
+                else {
+                    query = "Select testnum, done from testlike where id=?";
+                    db.query(query, [userID],(err, done) =>{
+                        res.send({list:result, doneList:done});
+                    })
+                }
+            })
+        }else{
+            console.log('로그인이 되어 있지 않습니다.');
+            res.render("home/login");
+        }
+    },
+    testPage: async(req, res) => {
+        let idx = req.params.n;
+        if(req.session.user){
+            logger.info(`GET /test/${idx} 200 "MBTI 테스트 페이지 이동"`);
+            res.render(`mbtitest/test-${idx}`);
+        }else{
+            logger.info('로그인이 되어 있지 않습니다.');
+            res.render("home/login");
+        }
+    },
+    notices: async(req, res) => {
+        if(req.session.user){
+            logger.info(`GET /notice 200 공지사항 요청`);
+            let id = req.session.user.id;
+            let query = "Select * from notice where towho='all' or towho = ?";
+            db.query(query, [id], (err, result) =>{
+                if(err) console.log(err);
+                else{
+                    console.log(result);
+                    res.send({list : result});
+                }
+            })
+        }else{
+            logger.info('로그인이 되어 있지 않습니다.');
+            res.render("home/login");
+        }
+    },
+    messages: async(req, res) => {
+        if(req.session.user){
+            logger.info(`GET /messages 200 메시지 알림 리스트 요청`);
+            let id = req.session.user.id;
+            let query = "Select * from message where recevier = ?";
+            db.query(query, [id], (err, result) => {
+                if(err) console.log(err);
+                else{
+                    console.log(result);
+                    res.send({list : result});
+                }
+            })
+        }else{
+            logger.info('로그인이 되어 있지 않습니다.');
+            res.render("home/login");
+        }
+    },
+    getidealtype: async(req, res) => {
+        if(req.session.user){
+            logger.info(`GET /getidealtype 200 이상형 추천 요청`);
+            let id = req.session.user.id;
+            // select gender, user_Otype from users, userMBTI where users.id = userMBTI.user_id and users.id="test1" LIMIT 1;
+            let query = "Select gender, user_Otype, content from users, userMBTI, profiles where users.id = userMBTI.user_id and user_id = ? LIMIT 1";
+            db.query(query, [id], (err, result)=>{
+                if(err) console.error(err);
+                else{
+                    let gender = result[0].gender;
+                    let user_Otype = result[0].user_Otype;
+
+                    // select * from users, userMBTI where users.id = userMBTI.user_id and userMBTI.user_type = 10 and users.gender != "Female" LIMIT 3;
+                    query = "Select * from users, userMBTI where users.id = userMBTI.user_id and userMBTI.user_type = ? and users.gender != ? LIMIT 3";
+                    db.query(query, [user_Otype, gender], (err, result) => {
+                        if(err) console.error(err);
+                        else{
+                            res.send({list : result});
+                        }
+                    })
+                }
+            })
+        }else{
+            logger.info('로그인이 되어 있지 않습니다.');
+            res.render("home/login");
         }
     }
 };
@@ -309,6 +401,48 @@ const process = {
         log(response, url);
 
         return res.status(url.status).json(response);
+    },
+    test: async(req, res) => {
+        const user = new User(req.body);
+        const response = await user.saveProfile();
+
+        const url = {
+            method: "/POST",
+            path: "/test",
+            status: response.err ? 409 : 200,
+        }
+
+        log(response, url);
+
+        return res.status(url.status).json(response);
+    },
+    noticeregister: async(req, res) => {
+        const user = new User(req.body);
+        const response = await user.saveRegisterNotice();
+
+        const url = {
+            method: "/POST",
+            path: "/notice/register",
+            status: response.err ? 409 : 200,
+        }
+
+        log(response, url);
+
+        return res.status(url.status).json(response);
+    },
+    sendMessage: async(req, res) => {
+        const user = new User(req.body);
+        const response = await user.sendMessage();
+
+        const url = {
+            method: "/POST",
+            path: "/sendMessage",
+            status: response.err ? 409 : 200,
+        }
+
+        log(response, url);
+
+        return res.status(url.status).json(response);
     }
 };
 
@@ -356,7 +490,8 @@ const update = {
         return res.status(url.status).json(response);
     },
     changeImage: (req, res) => {
-        const user = new User(req.body);
+        console.log(req.body);
+        const user = new User(req.body);        
         const response = user.changeImage();
 
         const url = {
@@ -365,6 +500,19 @@ const update = {
             status: response.err ? 409 : 200,
         }
 
+        log(response, url);
+
+        return res.status(url.status).json(response);
+    },
+    testlike: async(req, res) => {      // dislike = +1, like -1
+        const user = new User(req.body);
+        const response = await user.testlike();
+
+        const url = {
+            method: "/PUT",
+            path: "/test/like",
+            status: response.err ? 409 : 200,
+        }
         log(response, url);
 
         return res.status(url.status).json(response);

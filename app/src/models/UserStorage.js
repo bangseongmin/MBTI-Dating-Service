@@ -1,5 +1,6 @@
 "use strict";
 
+const { json } = require("express");
 const db = require("../config/dbcon");
 const { data } = require("../config/logger");
 
@@ -89,14 +90,11 @@ class UserStorage {
                 let count = JSON.stringify(data[0].count);
 
                 let url = `${userInfo.userType}/${parseInt(count+1)}.png`;
-                console.log(count);
-                console.log(url);
 
                 query = "Insert INTO images(id, image) values(?, ?);"
                 db.query(query, [userInfo.id, url], (err, data)=>{
                     if(err) console.log("이미지 저장 중"+err);
                     else {
-                        console.log("이미지 저장 성공" + data);
                         query = "UPDATE users SET is_test = true, image = ? WHERE id = ?;";
                         db.query(query, [url, userInfo.id], (err, data)=> {
                             if(err) console.log("에러"+err);
@@ -134,7 +132,6 @@ class UserStorage {
             db.query(query, [id], (err, result) => {
                 if(err) reject(`${err}`); 
                 else{
-                    console.log("결과양ㅁ!!"+JSON.stringify(result));
                     query = "SELECT * from images where id = ?";
                     db.query(query, [id], (err, data)=>{
                         if(err) reject(`${err}`);
@@ -167,7 +164,79 @@ class UserStorage {
             let query = "update users SET image = ? WHERE id = ?";
             db.query(query, [userInfo.image, userInfo.id], (err, data)=>{
                 if(err) reject(`${err}`);
-                else resolve({ success : true});
+                else resolve({ success : true, result: data[0]});
+            })
+        })
+    }
+
+    static async testlike(testInfo){
+        return new Promise((resolve, reject) => {
+            let result;
+            if(testInfo.action == "dislike") result = true;
+            else result = false;
+
+            let query = "update testlike SET done = ? where id = ?";
+            db.query(query, [result, testInfo.id], (err,data) => {
+                if(err) reject(`${err}`);
+                else {
+                    query = "select likecount from test where idx = ?";
+                    db.query(query, [testInfo.num], (err, count) => {
+                        if(err) reject(`${err}`);
+                        else{
+                            let likecount = count[0].likecount;
+                            if(result) likecount += 1;
+                            else likecount -= 1;
+
+                            query = "update test SET likecount = ? where idx = ?";
+                            db.query(query, [likecount, testInfo.num], (err, result) => {
+                                if(err) reject(`${err}`);
+                                else {
+                                    resolve(likecount);
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+        })
+    }
+
+    static async saveProfile(userInfo){
+        return new Promise((resolve, reject) => {
+            let query = "Select count(idx) AS count from userMBTI where user_type=?";
+            db.query(query, [userInfo.userType], (err, data)=>{
+                let count = JSON.stringify(data[0].count);
+                let url = `${userInfo.userType}/${parseInt(count+1)}.png`;
+                query = "Insert INTO images(id, image) values(?, ?);"
+                db.query(query, [userInfo.id, url], (err, data)=>{
+                    if(err) reject(`${err}`);
+                    else {
+                        resolve({ success : true, msg : "저장되셨습니다."});
+                    }
+                })
+            })
+        })
+    }
+
+    static async saveRegisterNotice(userInfo){
+        return new Promise((resolve, reject)=>{
+            let title = `신규가입 축하 메시지`;
+            let content = `${userInfo.id}님 가입을 축하드립니다. 많은 이용 부탁드립니다.`;
+            let query = "Insert INTO notice(title, content, towho) values(?, ?, ?);"
+            db.query(query, [title, content, userInfo.id], (err, data)=>{
+                if(err) reject(`${err}`);
+                else resolve({success:true, msg : "가입성공"});
+            })
+        })
+    }
+
+    static async sendMessage(userInfo){
+        return new Promise((resolve, reject)=>{
+            let content = `${userInfo.send}님께서 ${userInfo.to}님에게 관심을 표현하셨습니다.`;
+            let query = "Insert INTO message(sender, recevier, content) values(?, ?, ?);"
+            db.query(query, [userInfo.send, userInfo.to, content], (err, data)=>{
+                if(err) reject(`${err}`);
+                else resolve({success:true, msg : data});
             })
         })
     }

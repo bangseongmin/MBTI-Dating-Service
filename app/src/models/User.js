@@ -162,6 +162,55 @@ class User {
             return { success: false , err };
         }
     }
+
+    async testlike(){
+        const client = this.body;
+        try{
+            const test = await UserStorage.testlike(client);
+            if(test){
+  
+                return {success: true, count : test};
+            }
+        }catch(err){
+            return { success: false , err };
+        }
+    }
+
+    async saveProfile(){
+        const client = this.body;
+        try{
+            const user = await UserStorage.saveProfile(client);
+            if(client){
+                return {success: true, msg : user};
+            }
+        }catch(err){
+            return {success:false, err};
+        }
+    }
+
+    async saveRegisterNotice(){
+        const client = this.body;
+        try{
+            const user = await UserStorage.saveRegisterNotice(client);
+            if(client){
+                return {success: true, msg : user};
+            }
+        }catch(err){
+            return {success:false, err};
+        }
+    }
+
+    async sendMessage(){
+        const client = this.body;
+        try{
+            const user = await UserStorage.sendMessage(client);
+            if(client){
+                return {success : true};
+            }
+        }catch(err){
+            return {success:false, err};
+        }
+    }
 }
 
 module.exports = User;
