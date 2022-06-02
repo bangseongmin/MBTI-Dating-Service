@@ -2,6 +2,7 @@
 
 $(document).ready(function () {
     setProfile();
+    get_ideal_type();
 })
 
 async function setProfile(){

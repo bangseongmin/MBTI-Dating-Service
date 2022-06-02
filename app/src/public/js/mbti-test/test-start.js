@@ -4,8 +4,6 @@ const result = document.querySelector('#result');
 
 const endPoint = qnaList.length;                                        // 질문 개수
 const select = [0, 0, 0, 0, 0, 0, 0, 0];        // 설문조사결과
-alert(qnaList.length);
-
 // Test 시작
 function begin(){
     main.style.WebkitAnimation = "fadeOut 1s";
